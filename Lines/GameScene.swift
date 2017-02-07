@@ -23,6 +23,8 @@ class GameScene: SKScene {
     var won = false
     let cameraNode = SKCameraNode()
     var failureRect = SKShapeNode()
+    let scoreText = SKLabelNode()
+    var score = 0
     
     
     override func didMove(to view: SKView) {
@@ -48,6 +50,13 @@ class GameScene: SKScene {
                                               SKAction.fadeOut(withDuration: 0.5),
                                               SKAction.removeFromParent()]))
         }
+        
+        
+        scoreText.text = String(score)
+        scoreText.fontColor = .white
+        scoreText.fontSize = 150
+        scoreText.position = CGPoint(x: size.width/4, y: size.height/2+150)
+        addChild(scoreText)
         
         failureRect = SKShapeNode(rectOf: CGSize(width: size.width, height: 10))
         failureRect.fillColor = .red
@@ -132,7 +141,8 @@ class GameScene: SKScene {
             blocks[currentBlock].physicsBody = blockBody
             
             currentBlock += 1
-            moveSpeed = moveSpeed - 0.05
+            score += 1
+            moveSpeed = moveSpeed - 0.01
             addBlock()
         } else {
             print("Is not first")
@@ -143,7 +153,8 @@ class GameScene: SKScene {
                 blocks[currentBlock].physicsBody = blockBody
                 
                 currentBlock += 1
-                moveSpeed = moveSpeed - 0.05
+                score += 1
+                moveSpeed = moveSpeed - 0.01
                 addBlock()
             
         }
@@ -172,6 +183,14 @@ class GameScene: SKScene {
         if blocks[currentBlock].position.y > cameraNode.position.y && !cameraNode.hasActions(){
             cameraNode.position.y = cameraNode.position.y + 100
             failureRect.position.y += 100
+        }
+        
+        if scoreText.position.y < cameraNode.position.y+150 && !cameraNode.hasActions() {
+            scoreText.position.y += 100
+        }
+        
+        if Int(scoreText.text!)! != score {
+            scoreText.text = String(score)
         }
         
     }
@@ -213,20 +232,15 @@ class GameScene: SKScene {
         self.view?.presentScene(nil)
         */
         if !lost {
-            print("\n\n")
-            print(currentBlock-1)
-            print(blocks[currentBlock-1].position.y)
-            print(failureRect.position.y)
-            blocks[currentBlock-1].fillColor = .red
-            if blocks[currentBlock-1].position.y-200 <= failureRect.position.y {
+            
         let loser = SKLabelNode()
         loser.text = "YOU LOSE"
         loser.fontSize = 200
         loser.fontColor = SKColor.red
-        loser.position = CGPoint(x: size.width/2, y: cameraNode.position.y)
+        loser.position = CGPoint(x: size.width/2, y: cameraNode.position.y+350)
         addChild(loser)
             lost = true
-            }
+            
         }
     }
     
@@ -250,9 +264,13 @@ extension GameScene: SKPhysicsContactDelegate {
         if let nodeA = contact.bodyA.node as? SKShapeNode, let nodeB = contact.bodyB.node as? SKShapeNode {
             print("TEST")
             print("CONTACT")
-           
+            print(nodeB.physicsBody?.velocity.dy)
+            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-60.0){
+                print("FAST")
                 
                 loser()
+                
+            }
         
         }
     }
