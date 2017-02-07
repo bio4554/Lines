@@ -255,6 +255,15 @@ class GameScene: SKScene {
             lost = true
         }
     }
+    
+    func restart() {
+        currentBlock = 0
+        won = false
+        lost = false
+        
+        
+        blocks.removeAll(keepingCapacity: false)
+    }
 }
 
 extension GameScene: SKPhysicsContactDelegate {
@@ -265,7 +274,7 @@ extension GameScene: SKPhysicsContactDelegate {
             print("TEST")
             print("CONTACT")
             print(nodeB.physicsBody?.velocity.dy)
-            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-60.0){
+            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-100.0){
                 print("FAST")
                 
                 loser()
