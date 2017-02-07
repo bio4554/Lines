@@ -13,10 +13,13 @@ class GameScene: SKScene {
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
-    var startingPoint:Int = 300
+    var startingPoint:Int = 150
     var blocks:[SKShapeNode] = []
     var currentBlock = 0
     var left = true
+    var first = true
+    var moveSpeed = 1.0
+    var lost = false
     
     
     override func didMove(to view: SKView) {
@@ -42,14 +45,31 @@ class GameScene: SKScene {
                                               SKAction.fadeOut(withDuration: 0.5),
                                               SKAction.removeFromParent()]))
         }
+        
+        let failureRect = SKShapeNode(rectOf: CGSize(width: size.width, height: 10))
+        failureRect.fillColor = .red
+        failureRect.position = CGPoint(x: size.width/2, y: CGFloat(50))
+        let failureBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 10))
+        failureBody.categoryBitMask = 0
+        failureBody.collisionBitMask = 0
+        failureBody.contactTestBitMask = 1
+        failureBody.isDynamic = false
+        failureRect.physicsBody = failureBody
+        addChild(failureRect)
+        physicsWorld.gravity.dy = -22
+        physicsWorld.contactDelegate = self
+        /*
         let ledge = SKNode()
         ledge.position = CGPoint(x: size.width/2, y: 100)
         let ledgeBody = SKPhysicsBody(rectangleOf: CGSize(width: 200, height: 10))
         ledgeBody.isDynamic = false
         ledge.physicsBody = ledgeBody
         addChild(ledge)
+        */
         addBlock()
     }
+    
+    
     
     
     func touchDown(atPoint pos : CGPoint) {
@@ -86,12 +106,41 @@ class GameScene: SKScene {
             self.touchDown(atPoint: t.location(in: self))
         
         }
+        print("Tapped\n")
+        if !lost {
+            
+            
         let blockBody = SKPhysicsBody(rectangleOf: CGSize(width: 400, height: 100))
         blockBody.mass = 5
-        blocks[currentBlock].removeAllActions()
-        blocks[currentBlock].physicsBody = blockBody
-        currentBlock += 1
-        addBlock()
+        blockBody.contactTestBitMask = 0
+        blockBody.categoryBitMask = 1
+        if first {
+            print("Is first")
+            blockBody.isDynamic = false
+            first = false
+            blocks[currentBlock].removeAllActions()
+            blocks[currentBlock].physicsBody = blockBody
+            
+            currentBlock += 1
+            moveSpeed = moveSpeed - 0.05
+            addBlock()
+        } else {
+            print("Is not first")
+            print(currentBlock)
+            
+                print("Is not moving")
+                blocks[currentBlock].removeAllActions()
+                blocks[currentBlock].physicsBody = blockBody
+                
+                currentBlock += 1
+                moveSpeed = moveSpeed - 0.05
+                addBlock()
+            
+        }
+            
+        }
+        
+        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -121,13 +170,14 @@ class GameScene: SKScene {
         
         let section = SKShapeNode(path: path.cgPath)
         section.position = CGPoint(x: size.width/2, y: CGFloat(startingPoint))
-        section.fillColor = .red
-        section.strokeColor = .red
+        section.fillColor = .green
+        section.strokeColor = .green
+        
         blocks.append(section)
         addChild(blocks[currentBlock])
         
-        let moveLeft = SKAction.move(to: CGPoint(x: size.width/2-200, y:  CGFloat(startingPoint)), duration: 1)
-        let moveRight = SKAction.move(to: CGPoint(x: size.width/2+200, y:  CGFloat(startingPoint)), duration: 1)
+        let moveLeft = SKAction.move(to: CGPoint(x: size.width/2-400, y:  CGFloat(startingPoint)), duration: moveSpeed)
+        let moveRight = SKAction.move(to: CGPoint(x: size.width/2+400, y:  CGFloat(startingPoint)), duration: moveSpeed)
         if left {
             blocks[currentBlock].run(SKAction.repeatForever(SKAction.sequence([moveLeft, moveRight])))
             left = false
@@ -137,5 +187,37 @@ class GameScene: SKScene {
             left = true
         }
         startingPoint += 100
+    }
+    
+    func restartAll() {
+        /*
+        self.removeAllChildren()
+        self.removeAllActions()
+        self.removeFromParent()
+        self.view?.presentScene(nil)
+        */
+        if !lost {
+        let loser = SKLabelNode()
+        loser.text = "YOU LOSE"
+        loser.fontSize = 200
+        loser.fontColor = SKColor.red
+        loser.position = CGPoint(x: size.width/2, y: size.height/2)
+        addChild(loser)
+            lost = true
+        }
+    }
+}
+
+extension GameScene: SKPhysicsContactDelegate {
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+        if let nodeA = contact.bodyA.node as? SKShapeNode, let nodeB = contact.bodyB.node as? SKShapeNode {
+            print("TEST")
+            if nodeA.fillColor != nodeB.fillColor {
+                print("CONTACT")
+                restartAll()
+            }
+        }
     }
 }
