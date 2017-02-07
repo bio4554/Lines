@@ -13,8 +13,15 @@ class GameScene: SKScene {
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
+    var startingPoint:Int = 300
+    var blocks:[SKShapeNode] = []
+    var currentBlock = 0
+    var left = true
+    
     
     override func didMove(to view: SKView) {
+        
+        
         
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
@@ -35,6 +42,13 @@ class GameScene: SKScene {
                                               SKAction.fadeOut(withDuration: 0.5),
                                               SKAction.removeFromParent()]))
         }
+        let ledge = SKNode()
+        ledge.position = CGPoint(x: size.width/2, y: 100)
+        let ledgeBody = SKPhysicsBody(rectangleOf: CGSize(width: 200, height: 10))
+        ledgeBody.isDynamic = false
+        ledge.physicsBody = ledgeBody
+        addChild(ledge)
+        addBlock()
     }
     
     
@@ -67,7 +81,17 @@ class GameScene: SKScene {
             label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
         }
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        for t in touches {
+            
+            self.touchDown(atPoint: t.location(in: self))
+        
+        }
+        let blockBody = SKPhysicsBody(rectangleOf: CGSize(width: 400, height: 100))
+        blockBody.mass = 5
+        blocks[currentBlock].removeAllActions()
+        blocks[currentBlock].physicsBody = blockBody
+        currentBlock += 1
+        addBlock()
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -85,5 +109,33 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+    }
+    
+    func addBlock() {
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: -200, y: 0))
+        path.addLine(to: CGPoint(x: 200, y: 0))
+        path.addLine(to: CGPoint(x: 200, y: 100))
+        path.addLine(to: CGPoint(x: -200, y: 100))
+        path.addLine(to: CGPoint(x: -200, y: 0))
+        
+        let section = SKShapeNode(path: path.cgPath)
+        section.position = CGPoint(x: size.width/2, y: CGFloat(startingPoint))
+        section.fillColor = .red
+        section.strokeColor = .red
+        blocks.append(section)
+        addChild(blocks[currentBlock])
+        
+        let moveLeft = SKAction.move(to: CGPoint(x: size.width/2-200, y:  CGFloat(startingPoint)), duration: 1)
+        let moveRight = SKAction.move(to: CGPoint(x: size.width/2+200, y:  CGFloat(startingPoint)), duration: 1)
+        if left {
+            blocks[currentBlock].run(SKAction.repeatForever(SKAction.sequence([moveLeft, moveRight])))
+            left = false
+        }
+        else {
+            blocks[currentBlock].run(SKAction.repeatForever(SKAction.sequence([moveRight, moveLeft])))
+            left = true
+        }
+        startingPoint += 100
     }
 }
