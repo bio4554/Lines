@@ -25,6 +25,7 @@ class GameScene: SKScene {
     var failureRect = SKShapeNode()
     let scoreText = SKLabelNode()
     var score = 0
+    var buttonLose = SKShapeNode()
     
     
     override func didMove(to view: SKView) {
@@ -52,29 +53,7 @@ class GameScene: SKScene {
         }
         
         
-        scoreText.text = String(score)
-        scoreText.fontColor = .white
-        scoreText.fontSize = 150
-        scoreText.position = CGPoint(x: size.width/4, y: size.height/2+150)
-        addChild(scoreText)
-        
-        failureRect = SKShapeNode(rectOf: CGSize(width: size.width, height: 10))
-        failureRect.fillColor = .red
-        failureRect.position = CGPoint(x: size.width/2, y: CGFloat(50))
-        let failureBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 10))
-        failureBody.categoryBitMask = 0
-        failureBody.collisionBitMask = 0
-        failureBody.contactTestBitMask = 1
-        failureBody.isDynamic = false
-        failureRect.physicsBody = failureBody
-        
-        
-        
-        addChild(failureRect)
-        
-        addChild(cameraNode)
-        camera = cameraNode
-        cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
+        setupLedges()
         physicsWorld.gravity.dy = -22
         physicsWorld.contactDelegate = self
         /*
@@ -116,6 +95,7 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         if let label = self.label {
             label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
         }
@@ -123,6 +103,11 @@ class GameScene: SKScene {
         for t in touches {
             
             self.touchDown(atPoint: t.location(in: self))
+            let node = nodes(at: t.location(in: self))
+            if buttonLose.contains(t.location(in: self)) && lost {
+                self.buttonLose.removeFromParent()
+                self.restart()
+            }
         
         }
         print("Tapped\n")
@@ -130,7 +115,7 @@ class GameScene: SKScene {
             
             
         let blockBody = SKPhysicsBody(rectangleOf: CGSize(width: 400, height: 100))
-        blockBody.mass = 5
+        blockBody.mass = 50
         blockBody.contactTestBitMask = 0
         blockBody.categoryBitMask = 1
         if first {
@@ -232,7 +217,9 @@ class GameScene: SKScene {
         self.view?.presentScene(nil)
         */
         if !lost {
+        
             
+            /*
         let loser = SKLabelNode()
         loser.text = "YOU LOSE"
         loser.fontSize = 200
@@ -240,8 +227,39 @@ class GameScene: SKScene {
         loser.position = CGPoint(x: size.width/2, y: cameraNode.position.y+350)
         addChild(loser)
             lost = true
+ */
+            buttonLose = SKShapeNode(rectOf: CGSize(width: 200, height: 200))
+            buttonLose.fillColor = .red
+            buttonLose.position = CGPoint(x: size.width/2, y: size.height/2)
+            buttonLose.name = "LoseButton"
+            addChild(buttonLose)
             
         }
+    }
+    
+    func setupLedges() {
+        scoreText.text = String(score)
+        scoreText.fontColor = .white
+        scoreText.fontSize = 150
+        scoreText.position = CGPoint(x: size.width/4, y: size.height/2+150)
+        addChild(scoreText)
+        
+        failureRect = SKShapeNode(rectOf: CGSize(width: size.width, height: 10))
+        failureRect.fillColor = .red
+        failureRect.position = CGPoint(x: size.width/2, y: CGFloat(50))
+        let failureBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 10))
+        failureBody.categoryBitMask = 0
+        failureBody.collisionBitMask = 0
+        failureBody.contactTestBitMask = 1
+        failureBody.isDynamic = false
+        failureRect.physicsBody = failureBody
+        
+        
+        
+        addChild(failureRect)
+        addChild(cameraNode)
+        camera = cameraNode
+        cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
     }
     
     func winner() {
@@ -258,11 +276,20 @@ class GameScene: SKScene {
     
     func restart() {
         currentBlock = 0
+        moveSpeed = 1.0
+        startingPoint = 150
+        first = true
+        score = 0
+        cameraNode.position.y = size.height/2
         won = false
         lost = false
         
         
-        blocks.removeAll(keepingCapacity: false)
+        blocks.removeAll()
+        self.removeAllChildren()
+        self.removeAllActions()
+        setupLedges()
+        addBlock()
     }
 }
 
@@ -273,8 +300,9 @@ extension GameScene: SKPhysicsContactDelegate {
         if let nodeA = contact.bodyA.node as? SKShapeNode, let nodeB = contact.bodyB.node as? SKShapeNode {
             print("TEST")
             print("CONTACT")
-            print(nodeB.physicsBody?.velocity.dy)
-            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-100.0){
+            print("NODE B: " , nodeB.physicsBody?.velocity.dy)
+            print("NODE A: " , nodeA.physicsBody?.velocity.dy)
+            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-100.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-100.0){
                 print("FAST")
                 
                 loser()
