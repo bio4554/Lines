@@ -20,6 +20,9 @@ class GameScene: SKScene {
     var first = true
     var moveSpeed = 1.0
     var lost = false
+    var won = false
+    let cameraNode = SKCameraNode()
+    var failureRect = SKShapeNode()
     
     
     override func didMove(to view: SKView) {
@@ -46,7 +49,7 @@ class GameScene: SKScene {
                                               SKAction.removeFromParent()]))
         }
         
-        let failureRect = SKShapeNode(rectOf: CGSize(width: size.width, height: 10))
+        failureRect = SKShapeNode(rectOf: CGSize(width: size.width, height: 10))
         failureRect.fillColor = .red
         failureRect.position = CGPoint(x: size.width/2, y: CGFloat(50))
         let failureBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 10))
@@ -55,7 +58,14 @@ class GameScene: SKScene {
         failureBody.contactTestBitMask = 1
         failureBody.isDynamic = false
         failureRect.physicsBody = failureBody
+        
+        
+        
         addChild(failureRect)
+        
+        addChild(cameraNode)
+        camera = cameraNode
+        cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
         physicsWorld.gravity.dy = -22
         physicsWorld.contactDelegate = self
         /*
@@ -158,6 +168,12 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        
+        if blocks[currentBlock].position.y > cameraNode.position.y && !cameraNode.hasActions(){
+            cameraNode.position.y = cameraNode.position.y + 100
+            failureRect.position.y += 100
+        }
+        
     }
     
     func addBlock() {
@@ -189,7 +205,7 @@ class GameScene: SKScene {
         startingPoint += 100
     }
     
-    func restartAll() {
+    func loser() {
         /*
         self.removeAllChildren()
         self.removeAllActions()
@@ -197,12 +213,31 @@ class GameScene: SKScene {
         self.view?.presentScene(nil)
         */
         if !lost {
+            print("\n\n")
+            print(currentBlock-1)
+            print(blocks[currentBlock-1].position.y)
+            print(failureRect.position.y)
+            blocks[currentBlock-1].fillColor = .red
+            if blocks[currentBlock-1].position.y-200 <= failureRect.position.y {
         let loser = SKLabelNode()
         loser.text = "YOU LOSE"
         loser.fontSize = 200
         loser.fontColor = SKColor.red
-        loser.position = CGPoint(x: size.width/2, y: size.height/2)
+        loser.position = CGPoint(x: size.width/2, y: cameraNode.position.y)
         addChild(loser)
+            lost = true
+            }
+        }
+    }
+    
+    func winner() {
+        if !won {
+            let winner = SKLabelNode()
+            winner.text = "YOU WIN"
+            winner.fontSize = 200
+            winner.fontColor = SKColor.green
+            winner.position = CGPoint(x: size.width/2, y: size.height/2)
+            addChild(winner)
             lost = true
         }
     }
@@ -214,10 +249,11 @@ extension GameScene: SKPhysicsContactDelegate {
         
         if let nodeA = contact.bodyA.node as? SKShapeNode, let nodeB = contact.bodyB.node as? SKShapeNode {
             print("TEST")
-            if nodeA.fillColor != nodeB.fillColor {
-                print("CONTACT")
-                restartAll()
-            }
+            print("CONTACT")
+           
+                
+                loser()
+        
         }
     }
 }
