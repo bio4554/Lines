@@ -232,6 +232,7 @@ class GameScene: SKScene {
             buttonLose.fillColor = .red
             buttonLose.position = CGPoint(x: size.width/2, y: size.height/2)
             buttonLose.name = "LoseButton"
+            lost = true
             addChild(buttonLose)
             
         }
