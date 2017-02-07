@@ -31,7 +31,9 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         
         
-        let particles = SKEmitterNode
+        let particles = SKEmitterNode(fileNamed: "Fire.sks")
+        particles?.position = CGPoint(x: size.width/2, y: 100)
+        addChild(particles!)
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
         if let label = self.label {
