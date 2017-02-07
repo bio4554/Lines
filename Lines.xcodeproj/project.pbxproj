@@ -15,6 +15,7 @@
 		252DD76D1E4940A00005D767 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 252DD76B1E4940A00005D767 /* LaunchScreen.storyboard */; };
 		252DD7781E4940A00005D767 /* LinesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DD7771E4940A00005D767 /* LinesTests.swift */; };
 		252DD7831E4940A00005D767 /* LinesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DD7821E4940A00005D767 /* LinesUITests.swift */; };
+		254E96791E4A5BFB00CD2DF6 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = 254E96781E4A5BFB00CD2DF6 /* Fire.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		252DD77E1E4940A00005D767 /* LinesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		252DD7821E4940A00005D767 /* LinesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinesUITests.swift; sourceTree = "<group>"; };
 		252DD7841E4940A00005D767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		254E96781E4A5BFB00CD2DF6 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				252DD7691E4940A00005D767 /* Assets.xcassets */,
 				252DD76B1E4940A00005D767 /* LaunchScreen.storyboard */,
 				252DD76E1E4940A00005D767 /* Info.plist */,
+				254E96781E4A5BFB00CD2DF6 /* Fire.sks */,
 			);
 			path = Lines;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				252DD7681E4940A00005D767 /* Main.storyboard in Resources */,
+				254E96791E4A5BFB00CD2DF6 /* Fire.sks in Resources */,
 				252DD76A1E4940A00005D767 /* Assets.xcassets in Resources */,
 				252DD76D1E4940A00005D767 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -518,6 +522,7 @@
 				252DD7891E4940A00005D767 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		252DD78A1E4940A00005D767 /* Build configuration list for PBXNativeTarget "LinesTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +531,7 @@
 				252DD78C1E4940A00005D767 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		252DD78D1E4940A00005D767 /* Build configuration list for PBXNativeTarget "LinesUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +540,7 @@
 				252DD78F1E4940A00005D767 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

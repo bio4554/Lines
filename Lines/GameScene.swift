@@ -31,7 +31,7 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         
         
-        
+        let particles = SKEmitterNode
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
         if let label = self.label {
@@ -116,6 +116,7 @@ class GameScene: SKScene {
             
         let blockBody = SKPhysicsBody(rectangleOf: CGSize(width: 400, height: 100))
         blockBody.mass = 50
+        blockBody.friction = 500.0
         blockBody.contactTestBitMask = 0
         blockBody.categoryBitMask = 1
         if first {
@@ -128,6 +129,7 @@ class GameScene: SKScene {
             currentBlock += 1
             score += 1
             moveSpeed = moveSpeed - 0.01
+            startingPoint += 500
             addBlock()
         } else {
             print("Is not first")
@@ -191,7 +193,8 @@ class GameScene: SKScene {
         let section = SKShapeNode(path: path.cgPath)
         section.position = CGPoint(x: size.width/2, y: CGFloat(startingPoint))
         section.fillColor = .green
-        section.strokeColor = .green
+        section.strokeColor = .white
+        
         
         blocks.append(section)
         addChild(blocks[currentBlock])
@@ -219,7 +222,7 @@ class GameScene: SKScene {
         if !lost {
         
             
-            /*
+           /*
         let loser = SKLabelNode()
         loser.text = "YOU LOSE"
         loser.fontSize = 200
@@ -228,12 +231,15 @@ class GameScene: SKScene {
         addChild(loser)
             lost = true
  */
+            
+            /*
             buttonLose = SKShapeNode(rectOf: CGSize(width: 200, height: 200))
             buttonLose.fillColor = .red
             buttonLose.position = CGPoint(x: size.width/2, y: size.height/2)
             buttonLose.name = "LoseButton"
             lost = true
-            addChild(buttonLose)
+            addChild(buttonLose)*/
+            restart()
             
         }
     }
