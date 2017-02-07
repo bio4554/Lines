@@ -31,9 +31,7 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         
         
-        let particles = SKEmitterNode(fileNamed: "Fire.sks")
-        particles?.position = CGPoint(x: size.width/2, y: 100)
-        addChild(particles!)
+        
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
         if let label = self.label {
@@ -254,8 +252,9 @@ class GameScene: SKScene {
         addChild(scoreText)
         
         failureRect = SKShapeNode(rectOf: CGSize(width: size.width, height: 10))
-        failureRect.fillColor = .red
-        failureRect.position = CGPoint(x: size.width/2, y: CGFloat(50))
+        
+        failureRect.position = CGPoint(x: size.width/2, y: CGFloat(0))
+        failureRect.strokeColor = .clear
         let failureBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 10))
         failureBody.categoryBitMask = 0
         failureBody.collisionBitMask = 0
@@ -267,6 +266,9 @@ class GameScene: SKScene {
         
         addChild(failureRect)
         addChild(cameraNode)
+        let particles = SKEmitterNode(fileNamed: "Fire.sks")
+        particles?.position = CGPoint(x: size.width/2, y: 0)
+        addChild(particles!)
         camera = cameraNode
         cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
     }
