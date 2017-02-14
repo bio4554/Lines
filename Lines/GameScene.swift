@@ -26,6 +26,8 @@ class GameScene: SKScene {
     let scoreText = SKLabelNode()
     var score = 0
     var buttonLose = SKShapeNode()
+    var buttonShape = SKShapeNode()
+
     
     
     override func didMove(to view: SKView) {
@@ -65,60 +67,50 @@ class GameScene: SKScene {
         addChild(ledge)
         */
         addBlock()
+        
     }
     
     
     
     
     func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
+        
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
+        
     }
     
     func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
+        
         
         for t in touches {
             
             self.touchDown(atPoint: t.location(in: self))
             let node = nodes(at: t.location(in: self))
-            if buttonLose.contains(t.location(in: self)) && lost {
-                self.buttonLose.removeFromParent()
+            if buttonShape.contains(t.location(in: self)) && lost {
+                
                 self.restart()
             }
         
         }
         print("Tapped\n")
-        if !lost {
+        if !lost && Int((blocks[currentBlock].position.y)) == startingPoint-100 {
             
-            
-        let blockBody = SKPhysicsBody(rectangleOf: CGSize(width: 400, height: 100))
+        
+        let blockBody = SKPhysicsBody(polygonFrom: blocks[currentBlock].path!)
+        
         blockBody.mass = 50
         blockBody.friction = 500.0
         blockBody.contactTestBitMask = 0
         blockBody.categoryBitMask = 1
+        
+        
         if first {
             print("Is first")
             blockBody.isDynamic = false
@@ -146,6 +138,8 @@ class GameScene: SKScene {
             
         }
             
+        } else {
+            print("Not at startingPoint! at: ", Int((blocks[currentBlock].position.y)), ", should be at: ", startingPoint-100)
         }
         
         
@@ -167,7 +161,7 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         
-        if blocks[currentBlock].position.y > cameraNode.position.y && !cameraNode.hasActions(){
+        if blocks[lastBlock()].position.y > cameraNode.position.y && !cameraNode.hasActions() && !first{
             cameraNode.position.y = cameraNode.position.y + 100
             failureRect.position.y += 100
         }
@@ -182,6 +176,14 @@ class GameScene: SKScene {
         
     }
     
+    func lastBlock() -> Int {
+        if currentBlock == 0 {
+            return currentBlock
+        } else {
+            return currentBlock - 1
+        }
+    }
+    
     func addBlock() {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: -200, y: 0))
@@ -191,16 +193,21 @@ class GameScene: SKScene {
         path.addLine(to: CGPoint(x: -200, y: 0))
         
         let section = SKShapeNode(path: path.cgPath)
-        section.position = CGPoint(x: size.width/2, y: CGFloat(startingPoint))
-        section.fillColor = .green
+        section.position = CGPoint(x: size.width/2, y: CGFloat(startingPoint+Int(size.height)))
+        section.fillColor = .white
         section.strokeColor = .white
+        
+        
         
         
         blocks.append(section)
         addChild(blocks[currentBlock])
         
+        
         let moveLeft = SKAction.move(to: CGPoint(x: size.width/2-400, y:  CGFloat(startingPoint)), duration: moveSpeed)
         let moveRight = SKAction.move(to: CGPoint(x: size.width/2+400, y:  CGFloat(startingPoint)), duration: moveSpeed)
+        let moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: CGFloat(startingPoint)), duration: TimeInterval(1))
+        blocks[currentBlock].run(moveDown)
         if left {
             blocks[currentBlock].run(SKAction.repeatForever(SKAction.sequence([moveLeft, moveRight])))
             left = false
@@ -212,6 +219,8 @@ class GameScene: SKScene {
         startingPoint += 100
     }
     
+    
+    
     func loser() {
         /*
         self.removeAllChildren()
@@ -222,7 +231,7 @@ class GameScene: SKScene {
         if !lost {
         
             
-           /*
+           
         let loser = SKLabelNode()
         loser.text = "YOU LOSE"
         loser.fontSize = 200
@@ -230,7 +239,7 @@ class GameScene: SKScene {
         loser.position = CGPoint(x: size.width/2, y: cameraNode.position.y+350)
         addChild(loser)
             lost = true
- */
+ 
             
             /*
             buttonLose = SKShapeNode(rectOf: CGSize(width: 200, height: 200))
@@ -239,7 +248,20 @@ class GameScene: SKScene {
             buttonLose.name = "LoseButton"
             lost = true
             addChild(buttonLose)*/
-            restart()
+            
+            buttonShape = SKShapeNode(rectOf: CGSize(width: 500, height: 200))
+            buttonShape.fillColor = .white
+            buttonShape.position = CGPoint(x: size.width/2, y: (size.height/3+25)+CGFloat(cameraNode.position.y-600))
+            
+            let goText = SKLabelNode()
+            goText.text = "restart"
+            goText.fontSize = 150
+            goText.fontColor = .black
+            goText.position = CGPoint(x: size.width/2, y: size.height/3+CGFloat(cameraNode.position.y-600))
+            
+            addChild(goText)
+            addChild(buttonShape)
+            //restart()
             
         }
     }
@@ -266,9 +288,7 @@ class GameScene: SKScene {
         
         addChild(failureRect)
         addChild(cameraNode)
-        let particles = SKEmitterNode(fileNamed: "Fire.sks")
-        particles?.position = CGPoint(x: size.width/2, y: 0)
-        addChild(particles!)
+        
         camera = cameraNode
         cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
     }
@@ -315,11 +335,45 @@ extension GameScene: SKPhysicsContactDelegate {
             print("NODE A: " , nodeA.physicsBody?.velocity.dy)
             if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-100.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-100.0){
                 print("FAST")
-                
+                if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-100.0) {
+                    nodeB.fillColor = .red
+                    nodeB.strokeColor = .red
+                } else {
+                    nodeA.fillColor = .red
+                    nodeA.strokeColor = .red
+                }
                 loser()
                 
             }
         
         }
+    }
+}
+
+extension UIColor {
+    public convenience init?(hexString: String) {
+        let r, g, b, a: CGFloat
+        
+        if hexString.hasPrefix("#") {
+            let start = hexString.index(hexString.startIndex, offsetBy: 1)
+            let hexColor = hexString.substring(from: start)
+            
+            if hexColor.characters.count == 8 {
+                let scanner = Scanner(string: hexColor)
+                var hexNumber: UInt64 = 0
+                
+                if scanner.scanHexInt64(&hexNumber) {
+                    r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
+                    g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
+                    b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
+                    a = CGFloat(hexNumber & 0x000000ff) / 255
+                    
+                    self.init(red: r, green: g, blue: b, alpha: a)
+                    return
+                }
+            }
+        }
+        
+        return nil
     }
 }
