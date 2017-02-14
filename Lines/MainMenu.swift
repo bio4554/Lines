@@ -35,9 +35,11 @@ class MainMenu: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
             if buttonShape.contains(t.location(in: self)) {
+                let trans = SKTransition.reveal(with: .left, duration: 0.5)
+                
                 let gameScene = GameScene(size: self.size)
                 gameScene.scaleMode = .aspectFill
-                self.view?.presentScene(gameScene)
+                self.view?.presentScene(gameScene, transition:trans)
             }
         }
     }

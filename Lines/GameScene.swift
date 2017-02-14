@@ -162,13 +162,13 @@ class GameScene: SKScene {
         // Called before each frame is rendered
         
         if blocks[lastBlock()].position.y > cameraNode.position.y && !cameraNode.hasActions() && !first{
-            cameraNode.position.y = cameraNode.position.y + 100
-            failureRect.position.y += 100
+            moveScreen()
+            failureRect.position.y += 150
         }
         
-        if scoreText.position.y < cameraNode.position.y+150 && !cameraNode.hasActions() {
-            scoreText.position.y += 100
-        }
+        /*if scoreText.position.y < cameraNode.position.y+150 && !cameraNode.hasActions() {
+            moveScreen()
+        }*/
         
         if Int(scoreText.text!)! != score {
             scoreText.text = String(score)
@@ -206,7 +206,15 @@ class GameScene: SKScene {
         
         let moveLeft = SKAction.move(to: CGPoint(x: size.width/2-400, y:  CGFloat(startingPoint)), duration: moveSpeed)
         let moveRight = SKAction.move(to: CGPoint(x: size.width/2+400, y:  CGFloat(startingPoint)), duration: moveSpeed)
-        let moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: CGFloat(startingPoint)), duration: TimeInterval(1))
+        var moveDown = SKAction()
+        if first {
+            print("first anim")
+        moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: CGFloat(startingPoint)), duration: 0.1)
+            
+        } else {
+            print("else anim")
+        moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: CGFloat(startingPoint)), duration: 1)
+        }
         blocks[currentBlock].run(moveDown)
         if left {
             blocks[currentBlock].run(SKAction.repeatForever(SKAction.sequence([moveLeft, moveRight])))
@@ -266,12 +274,23 @@ class GameScene: SKScene {
         }
     }
     
+    func moveScreen() {
+        let moveInt = cameraNode.position.y + 150
+        let moveIntScore = scoreText.position.y + 150
+        let camMove = SKAction.move(to: CGPoint(x: cameraNode.position.x, y: moveInt), duration: 0.5)
+        let scoreMove = SKAction.move(to: CGPoint(x: scoreText.position.x, y: moveIntScore), duration: 0.5)
+        cameraNode.run(camMove)
+        scoreText.run(scoreMove)
+    }
+    
     func setupLedges() {
         scoreText.text = String(score)
         scoreText.fontColor = .white
         scoreText.fontSize = 150
-        scoreText.position = CGPoint(x: size.width/4, y: size.height/2+150)
+        scoreText.position = CGPoint(x: size.width/4+size.width, y: size.height/2+150)
         addChild(scoreText)
+        let scoreAnim = SKAction.move(to: CGPoint(x: size.width/4, y: size.height/2+150), duration: 0.5)
+        scoreText.run(scoreAnim)
         
         failureRect = SKShapeNode(rectOf: CGSize(width: size.width, height: 10))
         
