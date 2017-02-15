@@ -16,7 +16,7 @@ class GameScene: SKScene {
     var startingPoint:Int = 150
     var blocks:[SKShapeNode] = []
     var currentBlock = 0
-    var left = true
+    var left = false
     var first = true
     var moveSpeed = 1.0
     var lost = false
@@ -25,7 +25,7 @@ class GameScene: SKScene {
     var failureRect = SKShapeNode()
     let scoreText = SKLabelNode()
     var score = 0
-    var buttonLose = SKShapeNode()
+    
     var buttonShape = SKShapeNode()
 
     
@@ -36,6 +36,7 @@ class GameScene: SKScene {
         
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
+        self.backgroundColor = .black
         if let label = self.label {
             label.alpha = 0.0
             label.run(SKAction.fadeIn(withDuration: 2.0))
@@ -88,7 +89,7 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         
-        
+        if !lost {
         for t in touches {
             
             self.touchDown(atPoint: t.location(in: self))
@@ -142,7 +143,9 @@ class GameScene: SKScene {
             print("Not at startingPoint! at: ", Int((blocks[currentBlock].position.y)), ", should be at: ", startingPoint-100)
         }
         
-        
+        } else {
+            restart()
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -216,6 +219,7 @@ class GameScene: SKScene {
         moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: CGFloat(startingPoint)), duration: 1)
         }
         blocks[currentBlock].run(moveDown)
+        
         if left {
             blocks[currentBlock].run(SKAction.repeatForever(SKAction.sequence([moveLeft, moveRight])))
             left = false
@@ -224,6 +228,7 @@ class GameScene: SKScene {
             blocks[currentBlock].run(SKAction.repeatForever(SKAction.sequence([moveRight, moveLeft])))
             left = true
         }
+        
         startingPoint += 100
     }
     
@@ -239,13 +244,26 @@ class GameScene: SKScene {
         if !lost {
         
             
-           
+        blocks[currentBlock].removeFromParent()
         let loser = SKLabelNode()
-        loser.text = "YOU LOSE"
-        loser.fontSize = 200
+        let loser2 = SKLabelNode()
+        let loserMove = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y), duration: 0.5)
+        loser.text = "X"
+        loser2.text = "O"
+        loser.fontSize = 500
+        loser2.fontSize = 500
         loser.fontColor = SKColor.red
-        loser.position = CGPoint(x: size.width/2, y: cameraNode.position.y+350)
+        loser2.fontColor = SKColor.red
+        loser.position = CGPoint(x: size.width/2, y: cameraNode.position.y+size.height)
+        loser2.position = CGPoint(x: size.width/2, y: cameraNode.position.y+size.height)
         addChild(loser)
+        //addChild(loser2)
+        loser.run(loserMove)
+            
+            let animScoreEnd = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y+300), duration: 0.5)
+        scoreText.run(animScoreEnd)
+        
+        //loser2.run(loserMove)
             lost = true
  
             
@@ -257,18 +275,9 @@ class GameScene: SKScene {
             lost = true
             addChild(buttonLose)*/
             
-            buttonShape = SKShapeNode(rectOf: CGSize(width: 500, height: 200))
-            buttonShape.fillColor = .white
-            buttonShape.position = CGPoint(x: size.width/2, y: (size.height/3+25)+CGFloat(cameraNode.position.y-600))
             
-            let goText = SKLabelNode()
-            goText.text = "restart"
-            goText.fontSize = 150
-            goText.fontColor = .black
-            goText.position = CGPoint(x: size.width/2, y: size.height/3+CGFloat(cameraNode.position.y-600))
             
-            addChild(goText)
-            addChild(buttonShape)
+            
             //restart()
             
         }
@@ -286,8 +295,8 @@ class GameScene: SKScene {
     func setupLedges() {
         scoreText.text = String(score)
         scoreText.fontColor = .white
-        scoreText.fontSize = 150
-        scoreText.position = CGPoint(x: size.width/4+size.width, y: size.height/2+150)
+        scoreText.fontSize = 200
+        scoreText.position = CGPoint(x: size.width/4, y: size.height)
         addChild(scoreText)
         let scoreAnim = SKAction.move(to: CGPoint(x: size.width/4, y: size.height/2+150), duration: 0.5)
         scoreText.run(scoreAnim)
@@ -333,6 +342,7 @@ class GameScene: SKScene {
         cameraNode.position.y = size.height/2
         won = false
         lost = false
+        left = false
         
         
         blocks.removeAll()
