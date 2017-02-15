@@ -14,7 +14,7 @@ class MainMenu: SKScene {
     override func didMove(to view: SKView) {
         self.backgroundColor = .black
         let text = SKLabelNode()
-        text.text = "gravity"
+        text.text = "gra_vity"
         text.fontSize = 200
         text.position = CGPoint(x: size.width/2, y: size.height/2)
         

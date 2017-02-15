@@ -260,7 +260,7 @@ class GameScene: SKScene {
         //addChild(loser2)
         loser.run(loserMove)
             
-            let animScoreEnd = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y+300), duration: 0.5)
+            let animScoreEnd = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y+400), duration: 0.5)
         scoreText.run(animScoreEnd)
         
         //loser2.run(loserMove)

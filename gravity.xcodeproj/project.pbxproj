@@ -50,6 +50,7 @@
 		252DD77E1E4940A00005D767 /* gravityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gravityUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		252DD7821E4940A00005D767 /* LinesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinesUITests.swift; sourceTree = "<group>"; };
 		252DD7841E4940A00005D767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		252F27E61E53EF8700C9A5D1 /* gravity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = gravity.entitlements; sourceTree = "<group>"; };
 		25F2FC531E4A926300C644D2 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +82,7 @@
 		252DD7501E4940A00005D767 = {
 			isa = PBXGroup;
 			children = (
+				252F27E61E53EF8700C9A5D1 /* gravity.entitlements */,
 				252DD75B1E4940A00005D767 /* Lines */,
 				252DD7761E4940A00005D767 /* LinesTests */,
 				252DD7811E4940A00005D767 /* LinesUITests */,
@@ -201,6 +203,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = FT7DDB8UX9;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					252DD7721E4940A00005D767 = {
 						CreatedOnToolsVersion = 8.2.1;
