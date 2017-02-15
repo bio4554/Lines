@@ -252,7 +252,7 @@ class GameScene: SKScene {
         self.view?.presentScene(nil)
         */
         if !lost {
-        
+        lost = true
             
         blocks[currentBlock].removeFromParent()
         let loser = SKLabelNode()
@@ -274,7 +274,8 @@ class GameScene: SKScene {
         
             
             let highScoreText = SKLabelNode()
-            highScoreText.position = CGPoint(x: size.width/2, y: cameraNode.position.y-200)
+            let hsMove = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y-200), duration: 0.5)
+            highScoreText.position = CGPoint(x: size.width*2, y: cameraNode.position.y-200)
             highScoreText.fontSize = 200
             
             if let scoreSaved:Int = UserDefaults.standard.integer(forKey: "highScore") {
@@ -289,13 +290,14 @@ class GameScene: SKScene {
                 }
             }
         addChild(highScoreText)
+        highScoreText.run(hsMove)
         loser.run(loserMove)
             
             let animScoreEnd = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y+400), duration: 0.5)
         scoreText.run(animScoreEnd)
         
         //loser2.run(loserMove)
-            lost = true
+            //lost = true
  
             
             /*
@@ -327,7 +329,7 @@ class GameScene: SKScene {
         scoreText.text = String(score)
         scoreText.fontColor = .white
         scoreText.fontSize = 200
-        scoreText.position = CGPoint(x: size.width/4, y: size.height)
+        scoreText.position = CGPoint(x: size.width/4, y: size.height*2)
         addChild(scoreText)
         let scoreAnim = SKAction.move(to: CGPoint(x: size.width/4, y: size.height/2+150), duration: 0.5)
         scoreText.run(scoreAnim)
@@ -392,9 +394,9 @@ extension GameScene: SKPhysicsContactDelegate {
             print("CONTACT")
             print("NODE B: " , nodeB.physicsBody?.velocity.dy)
             print("NODE A: " , nodeA.physicsBody?.velocity.dy)
-            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-100.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-100.0){
+            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-200.0){
                 print("FAST")
-                if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-100.0) {
+                if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) {
                     
                     
                     // Honestly idk how this part even works 
