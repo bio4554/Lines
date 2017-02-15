@@ -36,7 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		252DD7591E4940A00005D767 /* Lines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lines.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		252DD7591E4940A00005D767 /* gravity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gravity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		252DD75C1E4940A00005D767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		252DD7621E4940A00005D767 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		252DD7641E4940A00005D767 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -44,10 +44,10 @@
 		252DD7691E4940A00005D767 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		252DD76C1E4940A00005D767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		252DD76E1E4940A00005D767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		252DD7731E4940A00005D767 /* LinesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		252DD7731E4940A00005D767 /* gravityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gravityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		252DD7771E4940A00005D767 /* LinesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinesTests.swift; sourceTree = "<group>"; };
 		252DD7791E4940A00005D767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		252DD77E1E4940A00005D767 /* LinesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		252DD77E1E4940A00005D767 /* gravityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gravityUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		252DD7821E4940A00005D767 /* LinesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinesUITests.swift; sourceTree = "<group>"; };
 		252DD7841E4940A00005D767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25F2FC531E4A926300C644D2 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -91,9 +91,9 @@
 		252DD75A1E4940A00005D767 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				252DD7591E4940A00005D767 /* Lines.app */,
-				252DD7731E4940A00005D767 /* LinesTests.xctest */,
-				252DD77E1E4940A00005D767 /* LinesUITests.xctest */,
+				252DD7591E4940A00005D767 /* gravity.app */,
+				252DD7731E4940A00005D767 /* gravityTests.xctest */,
+				252DD77E1E4940A00005D767 /* gravityUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,9 +134,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		252DD7581E4940A00005D767 /* Lines */ = {
+		252DD7581E4940A00005D767 /* gravity */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 252DD7871E4940A00005D767 /* Build configuration list for PBXNativeTarget "Lines" */;
+			buildConfigurationList = 252DD7871E4940A00005D767 /* Build configuration list for PBXNativeTarget "gravity" */;
 			buildPhases = (
 				252DD7551E4940A00005D767 /* Sources */,
 				252DD7561E4940A00005D767 /* Frameworks */,
@@ -146,14 +146,14 @@
 			);
 			dependencies = (
 			);
-			name = Lines;
+			name = gravity;
 			productName = Lines;
-			productReference = 252DD7591E4940A00005D767 /* Lines.app */;
+			productReference = 252DD7591E4940A00005D767 /* gravity.app */;
 			productType = "com.apple.product-type.application";
 		};
-		252DD7721E4940A00005D767 /* LinesTests */ = {
+		252DD7721E4940A00005D767 /* gravityTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 252DD78A1E4940A00005D767 /* Build configuration list for PBXNativeTarget "LinesTests" */;
+			buildConfigurationList = 252DD78A1E4940A00005D767 /* Build configuration list for PBXNativeTarget "gravityTests" */;
 			buildPhases = (
 				252DD76F1E4940A00005D767 /* Sources */,
 				252DD7701E4940A00005D767 /* Frameworks */,
@@ -164,14 +164,14 @@
 			dependencies = (
 				252DD7751E4940A00005D767 /* PBXTargetDependency */,
 			);
-			name = LinesTests;
+			name = gravityTests;
 			productName = LinesTests;
-			productReference = 252DD7731E4940A00005D767 /* LinesTests.xctest */;
+			productReference = 252DD7731E4940A00005D767 /* gravityTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		252DD77D1E4940A00005D767 /* LinesUITests */ = {
+		252DD77D1E4940A00005D767 /* gravityUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 252DD78D1E4940A00005D767 /* Build configuration list for PBXNativeTarget "LinesUITests" */;
+			buildConfigurationList = 252DD78D1E4940A00005D767 /* Build configuration list for PBXNativeTarget "gravityUITests" */;
 			buildPhases = (
 				252DD77A1E4940A00005D767 /* Sources */,
 				252DD77B1E4940A00005D767 /* Frameworks */,
@@ -182,9 +182,9 @@
 			dependencies = (
 				252DD7801E4940A00005D767 /* PBXTargetDependency */,
 			);
-			name = LinesUITests;
+			name = gravityUITests;
 			productName = LinesUITests;
-			productReference = 252DD77E1E4940A00005D767 /* LinesUITests.xctest */;
+			productReference = 252DD77E1E4940A00005D767 /* gravityUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -216,7 +216,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 252DD7541E4940A00005D767 /* Build configuration list for PBXProject "Lines" */;
+			buildConfigurationList = 252DD7541E4940A00005D767 /* Build configuration list for PBXProject "gravity" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -229,9 +229,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				252DD7581E4940A00005D767 /* Lines */,
-				252DD7721E4940A00005D767 /* LinesTests */,
-				252DD77D1E4940A00005D767 /* LinesUITests */,
+				252DD7581E4940A00005D767 /* gravity */,
+				252DD7721E4940A00005D767 /* gravityTests */,
+				252DD77D1E4940A00005D767 /* gravityUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -296,12 +296,12 @@
 /* Begin PBXTargetDependency section */
 		252DD7751E4940A00005D767 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 252DD7581E4940A00005D767 /* Lines */;
+			target = 252DD7581E4940A00005D767 /* gravity */;
 			targetProxy = 252DD7741E4940A00005D767 /* PBXContainerItemProxy */;
 		};
 		252DD7801E4940A00005D767 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 252DD7581E4940A00005D767 /* Lines */;
+			target = 252DD7581E4940A00005D767 /* gravity */;
 			targetProxy = 252DD77F1E4940A00005D767 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -431,6 +431,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.marsdev.gravity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -446,6 +447,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.marsdev.gravity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -460,7 +462,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.marsdev.LinesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lines.app/Lines";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/gravity.app/gravity";
 			};
 			name = Debug;
 		};
@@ -475,7 +477,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.marsdev.LinesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lines.app/Lines";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/gravity.app/gravity";
 			};
 			name = Release;
 		};
@@ -510,7 +512,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		252DD7541E4940A00005D767 /* Build configuration list for PBXProject "Lines" */ = {
+		252DD7541E4940A00005D767 /* Build configuration list for PBXProject "gravity" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				252DD7851E4940A00005D767 /* Debug */,
@@ -519,7 +521,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		252DD7871E4940A00005D767 /* Build configuration list for PBXNativeTarget "Lines" */ = {
+		252DD7871E4940A00005D767 /* Build configuration list for PBXNativeTarget "gravity" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				252DD7881E4940A00005D767 /* Debug */,
@@ -528,7 +530,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		252DD78A1E4940A00005D767 /* Build configuration list for PBXNativeTarget "LinesTests" */ = {
+		252DD78A1E4940A00005D767 /* Build configuration list for PBXNativeTarget "gravityTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				252DD78B1E4940A00005D767 /* Debug */,
@@ -537,7 +539,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		252DD78D1E4940A00005D767 /* Build configuration list for PBXNativeTarget "LinesUITests" */ = {
+		252DD78D1E4940A00005D767 /* Build configuration list for PBXNativeTarget "gravityUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				252DD78E1E4940A00005D767 /* Debug */,

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "252DD7581E4940A00005D767"
-               BuildableName = "Lines.app"
-               BlueprintName = "Lines"
-               ReferencedContainer = "container:Lines.xcodeproj">
+               BuildableName = "gravity.app"
+               BlueprintName = "gravity"
+               ReferencedContainer = "container:gravity.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "252DD7721E4940A00005D767"
-               BuildableName = "LinesTests.xctest"
-               BlueprintName = "LinesTests"
-               ReferencedContainer = "container:Lines.xcodeproj">
+               BuildableName = "gravityTests.xctest"
+               BlueprintName = "gravityTests"
+               ReferencedContainer = "container:gravity.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "252DD77D1E4940A00005D767"
-               BuildableName = "LinesUITests.xctest"
-               BlueprintName = "LinesUITests"
-               ReferencedContainer = "container:Lines.xcodeproj">
+               BuildableName = "gravityUITests.xctest"
+               BlueprintName = "gravityUITests"
+               ReferencedContainer = "container:gravity.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "252DD7581E4940A00005D767"
-            BuildableName = "Lines.app"
-            BlueprintName = "Lines"
-            ReferencedContainer = "container:Lines.xcodeproj">
+            BuildableName = "gravity.app"
+            BlueprintName = "gravity"
+            ReferencedContainer = "container:gravity.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "252DD7581E4940A00005D767"
-            BuildableName = "Lines.app"
-            BlueprintName = "Lines"
-            ReferencedContainer = "container:Lines.xcodeproj">
+            BuildableName = "gravity.app"
+            BlueprintName = "gravity"
+            ReferencedContainer = "container:gravity.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "252DD7581E4940A00005D767"
-            BuildableName = "Lines.app"
-            BlueprintName = "Lines"
-            ReferencedContainer = "container:Lines.xcodeproj">
+            BuildableName = "gravity.app"
+            BlueprintName = "gravity"
+            ReferencedContainer = "container:gravity.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
