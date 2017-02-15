@@ -257,6 +257,9 @@ class GameScene: SKScene {
         loser.position = CGPoint(x: size.width/2, y: cameraNode.position.y+size.height)
         loser2.position = CGPoint(x: size.width/2, y: cameraNode.position.y+size.height)
         addChild(loser)
+        //
+        //
+        //
         //addChild(loser2)
         loser.run(loserMove)
             
@@ -365,6 +368,12 @@ extension GameScene: SKPhysicsContactDelegate {
             if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-100.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-100.0){
                 print("FAST")
                 if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-100.0) {
+                    
+                    
+                    // Honestly idk how this part even works 
+                    // its so bad, but at least it works
+                    
+                    
                     nodeB.fillColor = .red
                     nodeB.strokeColor = .red
                 } else {
