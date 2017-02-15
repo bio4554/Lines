@@ -13,6 +13,8 @@ class GameScene: SKScene {
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
+    let prefs = UserDefaults.standard
+    
     var startingPoint:Int = 150
     var blocks:[SKShapeNode] = []
     var currentBlock = 0
@@ -25,7 +27,7 @@ class GameScene: SKScene {
     var failureRect = SKShapeNode()
     let scoreText = SKLabelNode()
     var score = 0
-    
+    var highScore = 0
     var buttonShape = SKShapeNode()
 
     
@@ -37,6 +39,12 @@ class GameScene: SKScene {
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
         self.backgroundColor = .black
+        
+        if let highScoret:Int = UserDefaults.standard.integer(forKey: "highScore") {
+            highScore = highScoret
+        }
+        
+        
         if let label = self.label {
             label.alpha = 0.0
             label.run(SKAction.fadeIn(withDuration: 2.0))
@@ -195,6 +203,8 @@ class GameScene: SKScene {
         path.addLine(to: CGPoint(x: -200, y: 100))
         path.addLine(to: CGPoint(x: -200, y: 0))
         
+        print("High score: ", highScore)
+        
         let section = SKShapeNode(path: path.cgPath)
         section.position = CGPoint(x: size.width/2, y: CGFloat(startingPoint+Int(size.height)))
         section.fillColor = .white
@@ -261,6 +271,24 @@ class GameScene: SKScene {
         //
         //
         //addChild(loser2)
+        
+            
+            let highScoreText = SKLabelNode()
+            highScoreText.position = CGPoint(x: size.width/2, y: cameraNode.position.y-200)
+            highScoreText.fontSize = 200
+            
+            if let scoreSaved:Int = UserDefaults.standard.integer(forKey: "highScore") {
+                if scoreSaved < score {
+                    highScoreText.text = String(score)
+                    print("High score higher" , score , ", " , scoreSaved)
+                    highScore = score
+                    UserDefaults.standard.set(score, forKey: "highScore")
+                    UserDefaults.standard.synchronize()
+                } else {
+                    highScoreText.text = String(scoreSaved)
+                }
+            }
+        addChild(highScoreText)
         loser.run(loserMove)
             
             let animScoreEnd = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y+400), duration: 0.5)
@@ -361,7 +389,6 @@ extension GameScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         
         if let nodeA = contact.bodyA.node as? SKShapeNode, let nodeB = contact.bodyB.node as? SKShapeNode {
-            print("TEST")
             print("CONTACT")
             print("NODE B: " , nodeB.physicsBody?.velocity.dy)
             print("NODE A: " , nodeA.physicsBody?.velocity.dy)
