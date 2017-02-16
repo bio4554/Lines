@@ -29,7 +29,8 @@ class GameScene: SKScene {
     var score = 0
     var highScore = 0
     var buttonShape = SKShapeNode()
-
+    var lostOnce = false
+    
     
     
     override func didMove(to view: SKView) {
@@ -68,13 +69,13 @@ class GameScene: SKScene {
         physicsWorld.gravity.dy = -22
         physicsWorld.contactDelegate = self
         /*
-        let ledge = SKNode()
-        ledge.position = CGPoint(x: size.width/2, y: 100)
-        let ledgeBody = SKPhysicsBody(rectangleOf: CGSize(width: 200, height: 10))
-        ledgeBody.isDynamic = false
-        ledge.physicsBody = ledgeBody
-        addChild(ledge)
-        */
+         let ledge = SKNode()
+         ledge.position = CGPoint(x: size.width/2, y: 100)
+         let ledgeBody = SKPhysicsBody(rectangleOf: CGSize(width: 200, height: 10))
+         ledgeBody.isDynamic = false
+         ledge.physicsBody = ledgeBody
+         addChild(ledge)
+         */
         addBlock()
         
     }
@@ -98,59 +99,59 @@ class GameScene: SKScene {
         
         
         if !lost {
-        for t in touches {
-            
-            self.touchDown(atPoint: t.location(in: self))
-            let node = nodes(at: t.location(in: self))
-            if buttonShape.contains(t.location(in: self)) && lost {
+            for t in touches {
                 
-                self.restart()
+                self.touchDown(atPoint: t.location(in: self))
+                let node = nodes(at: t.location(in: self))
+                if buttonShape.contains(t.location(in: self)) && lost {
+                    
+                    self.restart()
+                }
+                
             }
-        
-        }
-        print("Tapped\n")
-        if !lost && Int((blocks[currentBlock].position.y)) == startingPoint-100 {
-            
-        
-        let blockBody = SKPhysicsBody(polygonFrom: blocks[currentBlock].path!)
-        
-        blockBody.mass = 50
-        blockBody.friction = 500.0
-        blockBody.contactTestBitMask = 0
-        blockBody.categoryBitMask = 1
-        
-        
-        if first {
-            print("Is first")
-            blockBody.isDynamic = false
-            first = false
-            blocks[currentBlock].removeAllActions()
-            blocks[currentBlock].physicsBody = blockBody
-            
-            currentBlock += 1
-            score += 1
-            moveSpeed = moveSpeed - 0.01
-            startingPoint += 500
-            addBlock()
-        } else {
-            print("Is not first")
-            print(currentBlock)
-            
-                print("Is not moving")
-                blocks[currentBlock].removeAllActions()
-                blocks[currentBlock].physicsBody = blockBody
+            print("Tapped\n")
+            if !lost && Int((blocks[currentBlock].position.y)) == startingPoint-100 {
+                //if !lost {
                 
-                currentBlock += 1
-                score += 1
-                moveSpeed = moveSpeed - 0.01
-                addBlock()
+                let blockBody = SKPhysicsBody(polygonFrom: blocks[currentBlock].path!)
+                
+                blockBody.mass = 50
+                blockBody.friction = 500.0
+                blockBody.contactTestBitMask = 0
+                blockBody.categoryBitMask = 1
+                
+                
+                if first {
+                    print("Is first")
+                    blockBody.isDynamic = false
+                    first = false
+                    blocks[currentBlock].removeAllActions()
+                    blocks[currentBlock].physicsBody = blockBody
+                    
+                    currentBlock += 1
+                    score += 1
+                    moveSpeed = moveSpeed - 0.01
+                    startingPoint += 500
+                    addBlock()
+                } else {
+                    print("Is not first")
+                    print(currentBlock)
+                    
+                    print("Is not moving")
+                    blocks[currentBlock].removeAllActions()
+                    blocks[currentBlock].physicsBody = blockBody
+                    
+                    currentBlock += 1
+                    score += 1
+                    moveSpeed = moveSpeed - 0.01
+                    addBlock()
+                    
+                }
+                
+            } else {
+                print("Not at startingPoint! at: ", Int((blocks[currentBlock].position.y)), ", should be at: ", startingPoint-100)
+            }
             
-        }
-            
-        } else {
-            print("Not at startingPoint! at: ", Int((blocks[currentBlock].position.y)), ", should be at: ", startingPoint-100)
-        }
-        
         } else {
             restart()
         }
@@ -178,8 +179,8 @@ class GameScene: SKScene {
         }
         
         /*if scoreText.position.y < cameraNode.position.y+150 && !cameraNode.hasActions() {
-            moveScreen()
-        }*/
+         moveScreen()
+         }*/
         
         if Int(scoreText.text!)! != score {
             scoreText.text = String(score)
@@ -222,11 +223,11 @@ class GameScene: SKScene {
         var moveDown = SKAction()
         if first {
             print("first anim")
-        moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: CGFloat(startingPoint)), duration: 0.1)
+            moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: CGFloat(startingPoint)), duration: 0.1)
             
         } else {
             print("else anim")
-        moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: CGFloat(startingPoint)), duration: 1)
+            moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: CGFloat(startingPoint)), duration: 1)
         }
         blocks[currentBlock].run(moveDown)
         
@@ -246,32 +247,33 @@ class GameScene: SKScene {
     
     func loser() {
         /*
-        self.removeAllChildren()
-        self.removeAllActions()
-        self.removeFromParent()
-        self.view?.presentScene(nil)
-        */
-        if !lost {
-        lost = true
+         self.removeAllChildren()
+         self.removeAllActions()
+         self.removeFromParent()
+         self.view?.presentScene(nil)
+         */
+        if lost && !lostOnce {
+            //lost = true
+            lostOnce = true
             
-        blocks[currentBlock].removeFromParent()
-        let loser = SKLabelNode()
-        let loser2 = SKLabelNode()
-        let loserMove = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y), duration: 0.5)
-        loser.text = "X"
-        loser2.text = "O"
-        loser.fontSize = 500
-        loser2.fontSize = 500
-        loser.fontColor = SKColor.red
-        loser2.fontColor = SKColor.red
-        loser.position = CGPoint(x: size.width/2, y: cameraNode.position.y+size.height)
-        loser2.position = CGPoint(x: size.width/2, y: cameraNode.position.y+size.height)
-        addChild(loser)
-        //
-        //
-        //
-        //addChild(loser2)
-        
+            blocks[currentBlock].removeFromParent()
+            let loser = SKLabelNode()
+            let loser2 = SKLabelNode()
+            let loserMove = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y), duration: 0.5)
+            loser.text = "X"
+            loser2.text = "O"
+            loser.fontSize = 500
+            loser2.fontSize = 500
+            loser.fontColor = SKColor.red
+            loser2.fontColor = SKColor.red
+            loser.position = CGPoint(x: size.width/2, y: cameraNode.position.y+size.height)
+            loser2.position = CGPoint(x: size.width/2, y: cameraNode.position.y+size.height)
+            addChild(loser)
+            //
+            //
+            //
+            //addChild(loser2)
+            
             
             let highScoreText = SKLabelNode()
             let hsMove = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y-200), duration: 0.5)
@@ -289,24 +291,24 @@ class GameScene: SKScene {
                     highScoreText.text = String(scoreSaved)
                 }
             }
-        addChild(highScoreText)
-        highScoreText.run(hsMove)
-        loser.run(loserMove)
+            addChild(highScoreText)
+            highScoreText.run(hsMove)
+            loser.run(loserMove)
             
             let animScoreEnd = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y+400), duration: 0.5)
-        scoreText.run(animScoreEnd)
-        
-        //loser2.run(loserMove)
+            scoreText.run(animScoreEnd)
+            
+            //loser2.run(loserMove)
             //lost = true
- 
+            
             
             /*
-            buttonLose = SKShapeNode(rectOf: CGSize(width: 200, height: 200))
-            buttonLose.fillColor = .red
-            buttonLose.position = CGPoint(x: size.width/2, y: size.height/2)
-            buttonLose.name = "LoseButton"
-            lost = true
-            addChild(buttonLose)*/
+             buttonLose = SKShapeNode(rectOf: CGSize(width: 200, height: 200))
+             buttonLose.fillColor = .red
+             buttonLose.position = CGPoint(x: size.width/2, y: size.height/2)
+             buttonLose.name = "LoseButton"
+             lost = true
+             addChild(buttonLose)*/
             
             
             
@@ -338,7 +340,7 @@ class GameScene: SKScene {
         
         failureRect.position = CGPoint(x: size.width/2, y: CGFloat(0))
         failureRect.strokeColor = .clear
-        let failureBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 10))
+        let failureBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width*4, height: 10))
         failureBody.categoryBitMask = 0
         failureBody.collisionBitMask = 0
         failureBody.contactTestBitMask = 1
@@ -354,7 +356,7 @@ class GameScene: SKScene {
         cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
     }
     
-    func winner() {
+    func winner() { //You won
         if !won {
             let winner = SKLabelNode()
             winner.text = "YOU WIN"
@@ -366,7 +368,7 @@ class GameScene: SKScene {
         }
     }
     
-    func restart() {
+    func restart() { //Restart the game by clearing and reseting variables
         currentBlock = 0
         moveSpeed = 1.0
         startingPoint = 150
@@ -396,10 +398,11 @@ extension GameScene: SKPhysicsContactDelegate {
             print("NODE A: " , nodeA.physicsBody?.velocity.dy)
             if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-200.0){
                 print("FAST")
+                lost = true
                 if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) {
                     
                     
-                    // Honestly idk how this part even works 
+                    // Honestly idk how this part even works
                     // its so bad, but at least it works
                     
                     
@@ -412,7 +415,7 @@ extension GameScene: SKPhysicsContactDelegate {
                 loser()
                 
             }
-        
+            
         }
     }
 }
