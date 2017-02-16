@@ -338,7 +338,7 @@ class GameScene: SKScene {
         
         failureRect.position = CGPoint(x: size.width/2, y: CGFloat(0))
         failureRect.strokeColor = .clear
-        let failureBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 10))
+        let failureBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width*4, height: 10))
         failureBody.categoryBitMask = 0
         failureBody.collisionBitMask = 0
         failureBody.contactTestBitMask = 1
