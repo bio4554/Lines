@@ -3,7 +3,7 @@
 //  Lines
 //
 //  Created by Austin Childress on 2/6/17.
-//  Copyright © 2017 Austin Childress. All rights reserved.
+//  Copyright © 2017 Mars Dev. All rights reserved.
 //
 
 import SpriteKit
