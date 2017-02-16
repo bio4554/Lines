@@ -110,7 +110,7 @@ class GameScene: SKScene {
         }
         print("Tapped\n")
         if !lost && Int((blocks[currentBlock].position.y)) == startingPoint-100 {
-            
+            //if !lost {
         
         let blockBody = SKPhysicsBody(polygonFrom: blocks[currentBlock].path!)
         
