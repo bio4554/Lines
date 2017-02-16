@@ -29,6 +29,7 @@ class GameScene: SKScene {
     var score = 0
     var highScore = 0
     var buttonShape = SKShapeNode()
+    var lostOnce = false
     
     
     
@@ -251,8 +252,9 @@ class GameScene: SKScene {
          self.removeFromParent()
          self.view?.presentScene(nil)
          */
-        if lost {
+        if lost && !lostOnce {
             //lost = true
+            lostOnce = true
             
             blocks[currentBlock].removeFromParent()
             let loser = SKLabelNode()
