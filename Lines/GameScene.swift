@@ -9,6 +9,8 @@
 import SpriteKit
 import GameplayKit
 
+
+
 class GameScene: SKScene {
     
     private var label : SKLabelNode?
@@ -30,6 +32,9 @@ class GameScene: SKScene {
     var highScore = 0
     var buttonShape = SKShapeNode()
     var lostOnce = false
+    var isFalling = false
+    var loser = SKLabelNode()
+    let highScoreText = SKLabelNode()
     
     
     
@@ -110,12 +115,12 @@ class GameScene: SKScene {
                 
             }
             print("Tapped\n")
-            if !lost && Int((blocks[currentBlock].position.y)) == startingPoint-100 {
+            if !lost && Int((blocks[currentBlock].position.y)) == startingPoint-150 {
                 //if !lost {
                 
                 let blockBody = SKPhysicsBody(polygonFrom: blocks[currentBlock].path!)
                 
-                blockBody.mass = 50
+                blockBody.mass = 500
                 blockBody.friction = 500.0
                 blockBody.contactTestBitMask = 0
                 blockBody.categoryBitMask = 1
@@ -149,11 +154,12 @@ class GameScene: SKScene {
                 }
                 
             } else {
-                print("Not at startingPoint! at: ", Int((blocks[currentBlock].position.y)), ", should be at: ", startingPoint-100)
+                print("Not at startingPoint! at: ", Int((blocks[currentBlock].position.y)), ", should be at: ", startingPoint-150)
             }
             
         } else {
             restart()
+            //cleanBlocks()
         }
     }
     
@@ -184,6 +190,15 @@ class GameScene: SKScene {
         
         if Int(scoreText.text!)! != score {
             scoreText.text = String(score)
+        }
+        
+        if isFalling {
+            print("FALLING AT ", (blocks.last?.position.y)!)
+            if (blocks.last?.position.y)! < CGFloat(-500) {
+                isFalling = false
+                moveLostElements()
+                //restart()
+            }
         }
         
     }
@@ -229,6 +244,7 @@ class GameScene: SKScene {
             print("else anim")
             moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: CGFloat(startingPoint)), duration: 1)
         }
+        moveDown.timingMode = .easeOut
         blocks[currentBlock].run(moveDown)
         
         if left {
@@ -240,12 +256,12 @@ class GameScene: SKScene {
             left = true
         }
         
-        startingPoint += 100
+        startingPoint += 150
     }
     
     
     
-    func loser() {
+    func lostGame() {
         /*
          self.removeAllChildren()
          self.removeAllActions()
@@ -255,11 +271,18 @@ class GameScene: SKScene {
         if lost && !lostOnce {
             //lost = true
             lostOnce = true
+            failureRect.position.y = CGFloat(0)
+            //blocks[currentBlock].removeFromParent()
             
-            blocks[currentBlock].removeFromParent()
-            let loser = SKLabelNode()
+            let cameraMoveEnd = SKAction.move(to: CGPoint(x: size.width/2, y: size.height/2), duration: 2)
+            cameraMoveEnd.timingMode = .easeOut
+            cameraNode.run(cameraMoveEnd)
+            
+            
+            
             let loser2 = SKLabelNode()
-            let loserMove = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y), duration: 0.5)
+            let loserMove = SKAction.move(to: CGPoint(x: size.width/2, y: size.height/2+200), duration: 0.5)
+            loserMove.timingMode = .easeOut
             loser.text = "X"
             loser2.text = "O"
             loser.fontSize = 500
@@ -275,8 +298,9 @@ class GameScene: SKScene {
             //addChild(loser2)
             
             
-            let highScoreText = SKLabelNode()
-            let hsMove = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y-200), duration: 0.5)
+            
+            let hsMove = SKAction.move(to: CGPoint(x: size.width/2+400, y: size.height/2+200), duration: 0.5)
+            hsMove.timingMode = .easeOut
             highScoreText.position = CGPoint(x: size.width*2, y: cameraNode.position.y-200)
             highScoreText.fontSize = 200
             
@@ -295,7 +319,8 @@ class GameScene: SKScene {
             highScoreText.run(hsMove)
             loser.run(loserMove)
             
-            let animScoreEnd = SKAction.move(to: CGPoint(x: size.width/2, y: cameraNode.position.y+400), duration: 0.5)
+            let animScoreEnd = SKAction.move(to: CGPoint(x: size.width/2-400, y: size.height/2+200), duration: 0.5)
+            animScoreEnd.timingMode = .easeOut
             scoreText.run(animScoreEnd)
             
             //loser2.run(loserMove)
@@ -323,17 +348,36 @@ class GameScene: SKScene {
         let moveIntScore = scoreText.position.y + 150
         let camMove = SKAction.move(to: CGPoint(x: cameraNode.position.x, y: moveInt), duration: 0.5)
         let scoreMove = SKAction.move(to: CGPoint(x: scoreText.position.x, y: moveIntScore), duration: 0.5)
+        camMove.timingMode = .easeOut
+        scoreMove.timingMode = .easeOut
         cameraNode.run(camMove)
         scoreText.run(scoreMove)
+    }
+    
+    func moveLostElements() {
+        print("MOVE ELEMENTS: ", lost)
+        if lost {
+            let hsMove = SKAction.move(to: CGPoint(x: size.width*2, y: cameraNode.position.y-200), duration: 1)
+            hsMove.timingMode = .easeOut
+            
+            let loseMove = SKAction.move(to: CGPoint(x: size.width*2, y: cameraNode.position.y), duration: 1)
+            loseMove.timingMode = .easeOut
+            
+            highScoreText.run(hsMove)
+            loser.run(loseMove, completion: {
+                self.restart()
+            })
+        }
     }
     
     func setupLedges() {
         scoreText.text = String(score)
         scoreText.fontColor = .white
         scoreText.fontSize = 200
-        scoreText.position = CGPoint(x: size.width/4, y: size.height*2)
+        scoreText.position = CGPoint(x: size.width/4, y: size.height*2+100)
         addChild(scoreText)
-        let scoreAnim = SKAction.move(to: CGPoint(x: size.width/4, y: size.height/2+150), duration: 0.5)
+        let scoreAnim = SKAction.move(to: CGPoint(x: size.width/4, y: size.height/2+150), duration: 1)
+        scoreAnim.timingMode = .easeOut
         scoreText.run(scoreAnim)
         
         failureRect = SKShapeNode(rectOf: CGSize(width: size.width, height: 10))
@@ -378,6 +422,7 @@ class GameScene: SKScene {
         won = false
         lost = false
         left = false
+        lostOnce = false
         
         
         blocks.removeAll()
@@ -386,6 +431,20 @@ class GameScene: SKScene {
         setupLedges()
         addBlock()
     }
+    
+    func cleanBlocks() {
+        let blockBody = SKPhysicsBody(polygonFrom: blocks[currentBlock].path!)
+        
+        blockBody.mass = 500
+        blockBody.friction = 500.0
+        blockBody.contactTestBitMask = 0
+        blockBody.categoryBitMask = 1
+        blocks[currentBlock].removeAllActions()
+        blocks[currentBlock].physicsBody = blockBody
+        blocks[0].physicsBody?.isDynamic = true
+        isFalling = true
+    }
+    
 }
 
 extension GameScene: SKPhysicsContactDelegate {
@@ -396,10 +455,10 @@ extension GameScene: SKPhysicsContactDelegate {
             print("CONTACT")
             print("NODE B: " , nodeB.physicsBody?.velocity.dy)
             print("NODE A: " , nodeA.physicsBody?.velocity.dy)
-            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-200.0){
+            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-500.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-500.0) && !lost{
                 print("FAST")
                 lost = true
-                if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) {
+                /*if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) && !lost{
                     
                     
                     // Honestly idk how this part even works
@@ -408,11 +467,11 @@ extension GameScene: SKPhysicsContactDelegate {
                     
                     nodeB.fillColor = .red
                     nodeB.strokeColor = .red
-                } else {
+                } else if !lost {
                     nodeA.fillColor = .red
                     nodeA.strokeColor = .red
-                }
-                loser()
+                }*/
+                lostGame()
                 
             }
             
