@@ -26,8 +26,15 @@ class MainMenu: SKScene {
         goText.fontColor = .white
         goText.position = CGPoint(x: size.width/2, y: size.height/4)
         
+        let versionText = SKLabelNode()
+        versionText.text = "v1.2 BETA"
+        versionText.fontSize = 75
+        versionText.fontName = "AvenirNext-Bold"
+        versionText.position = CGPoint(x: size.width/2, y: 100)
+        
         addChild(text)
         addChild(goText)
+        addChild(versionText)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
