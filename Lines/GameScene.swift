@@ -124,6 +124,7 @@ class GameScene: SKScene {
                 blockBody.friction = 500.0
                 blockBody.contactTestBitMask = 0
                 blockBody.categoryBitMask = 1
+                blockBody.restitution = 0
                 
                 
                 if first {
@@ -146,8 +147,17 @@ class GameScene: SKScene {
                     blocks[currentBlock].removeAllActions()
                     blocks[currentBlock].physicsBody = blockBody
                     
+                    print("X: ", blocks[currentBlock].position.x, "\nX2: ", blocks[0].position.x)
+                    if blocks[currentBlock].position.x > blocks[0].position.x-25 && blocks[currentBlock].position.x < blocks[0].position.x+25 {
+                        blocks[currentBlock].fillColor = .green
+                        blocks[currentBlock].strokeColor = .green
+                        score += 2
+                    } else {
+                        score += 1
+                    }
+                    
+                    
                     currentBlock += 1
-                    score += 1
                     moveSpeed = moveSpeed - 0.01
                     addBlock()
                     
@@ -273,6 +283,17 @@ class GameScene: SKScene {
             lostOnce = true
             failureRect.position.y = CGFloat(0)
             //blocks[currentBlock].removeFromParent()
+            let blockBody = SKPhysicsBody(polygonFrom: blocks[currentBlock].path!)
+            blockBody.mass = 500
+            blockBody.friction = 500.0
+            blockBody.contactTestBitMask = 0
+            blockBody.categoryBitMask = 1
+            blockBody.restitution = 0
+            
+            blocks[currentBlock].removeAllActions()
+            blocks[currentBlock].physicsBody = blockBody
+            blocks[currentBlock].physicsBody?.isDynamic = true
+            
             
             let cameraMoveEnd = SKAction.move(to: CGPoint(x: size.width/2, y: size.height/2), duration: 2)
             cameraMoveEnd.timingMode = .easeOut
@@ -455,7 +476,7 @@ extension GameScene: SKPhysicsContactDelegate {
             print("CONTACT")
             print("NODE B: " , nodeB.physicsBody?.velocity.dy)
             print("NODE A: " , nodeA.physicsBody?.velocity.dy)
-            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-500.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-500.0) && !lost{
+            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-200.0) && !lost{
                 print("FAST")
                 lost = true
                 /*if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) && !lost{
