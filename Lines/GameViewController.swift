@@ -9,8 +9,12 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import GoogleMobileAds
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, GADBannerViewDelegate {
+    
+    var viewController: GameViewController!
+    var bannerView: GADBannerView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +26,14 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = true
         scene.scaleMode = .aspectFill
         skView.presentScene(scene)
+        bannerView = GADBannerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50))
+        bannerView.delegate = self
+        bannerView.rootViewController = self
+        bannerView.adUnitID = "ca-app-pub-6771136112977262/5909802439"
+        
+        let reqad = GADRequest()
+        bannerView.load(reqad)
+        self.view.addSubview(bannerView)
     }
 
     override var shouldAutorotate: Bool {

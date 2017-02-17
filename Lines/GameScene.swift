@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import GoogleMobileAds
 
 
 
@@ -148,7 +149,7 @@ class GameScene: SKScene {
                     blocks[currentBlock].physicsBody = blockBody
                     
                     print("X: ", blocks[currentBlock].position.x, "\nX2: ", blocks[0].position.x)
-                    if blocks[currentBlock].position.x > blocks[0].position.x-25 && blocks[currentBlock].position.x < blocks[0].position.x+25 {
+                    if blocks[currentBlock].position.x > blocks[0].position.x-10 && blocks[currentBlock].position.x < blocks[0].position.x+10 {
                         blocks[currentBlock].fillColor = .green
                         blocks[currentBlock].strokeColor = .green
                         score += 2
