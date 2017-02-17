@@ -378,7 +378,7 @@ class GameScene: SKScene {
         won = false
         lost = false
         left = false
-        
+        lostOnce = false
         
         blocks.removeAll()
         self.removeAllChildren()
