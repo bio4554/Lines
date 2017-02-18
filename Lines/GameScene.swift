@@ -190,8 +190,10 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         
-        if blocks[lastBlock()].position.y > cameraNode.position.y-200 && !cameraNode.hasActions() && !first && !lost {
+        if (blocks[lastBlock()].position.y > cameraNode.position.y-200 || blocks[lastBlock()].position.y > cameraNode.position.y) && !cameraNode.hasActions() && !first && !lost {
             moveScreen()
+            
+            //TODO Fix this shit
             failureRect.position.y += 100
         }
         
@@ -373,7 +375,12 @@ class GameScene: SKScene {
     }
     
     func moveScreen() {
-        let moveInt = cameraNode.position.y + 100
+        var moveInt:CGFloat
+        if blocks[lastBlock()].position.y > cameraNode.position.y-100 {
+            moveInt = cameraNode.position.y + 500
+        } else {
+        moveInt = cameraNode.position.y + 100
+        }
         let moveIntScore = scoreText.position.y + 100
         let camMove = SKAction.move(to: CGPoint(x: cameraNode.position.x, y: moveInt), duration: 0.5)
         let scoreMove = SKAction.move(to: CGPoint(x: scoreText.position.x, y: moveIntScore), duration: 0.5)
@@ -482,9 +489,11 @@ extension GameScene: SKPhysicsContactDelegate {
         
         if let nodeA = contact.bodyA.node as? SKShapeNode, let nodeB = contact.bodyB.node as? SKShapeNode {
             print("CONTACT")
-            print("NODE B: " , nodeB.physicsBody?.velocity.dy)
-            print("NODE A: " , nodeA.physicsBody?.velocity.dy)
-            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-150.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-150.0) && !lost{
+            print("NODE B Y: " , nodeB.physicsBody?.velocity.dy)
+            print("NODE A Y: " , nodeA.physicsBody?.velocity.dy)
+            print("NODE B X: " , nodeB.physicsBody?.velocity.dx)
+            print("NODE A X: " , nodeA.physicsBody?.velocity.dx)
+            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-175.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-175.0) /*&& (nodeB.physicsBody?.velocity.dx)! > CGFloat(0) || (nodeA.physicsBody?.velocity.dx)! > CGFloat(0) */&& !lost{
                 print("FAST")
                 lost = true
                 /*if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) && !lost{
