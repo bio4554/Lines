@@ -194,7 +194,7 @@ class GameScene: SKScene {
             moveScreen()
             
             //TODO Fix this shit
-            failureRect.position.y += 100
+            //failureRect.position.y += 100
         }
         
         /*if scoreText.position.y < cameraNode.position.y+150 && !cameraNode.hasActions() {
@@ -225,6 +225,7 @@ class GameScene: SKScene {
     }
     
     func addBlock() {
+        
         let path = UIBezierPath()
         path.move(to: CGPoint(x: -200, y: 0))
         path.addLine(to: CGPoint(x: 200, y: 0))
@@ -252,7 +253,7 @@ class GameScene: SKScene {
         } else {
             moveSpeedCheck = CGFloat(moveSpeed)
         }
-        
+        print("STARTING: ", startingPoint)
         let moveLeft = SKAction.move(to: CGPoint(x: size.width/2-400, y:  CGFloat(startingPoint)), duration: TimeInterval(moveSpeedCheck))
         let moveRight = SKAction.move(to: CGPoint(x: size.width/2+400, y:  CGFloat(startingPoint)), duration: TimeInterval(moveSpeedCheck))
         var moveDown = SKAction()
@@ -262,7 +263,7 @@ class GameScene: SKScene {
             
         } else {
             print("else anim")
-            moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: CGFloat(startingPoint)), duration: 1)
+            moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: blocks[lastBlock()].position.y + 250), duration: 1)
         }
         moveDown.timingMode = .easeOut
         blocks[currentBlock].run(moveDown)
@@ -376,12 +377,13 @@ class GameScene: SKScene {
     
     func moveScreen() {
         var moveInt:CGFloat
-        if blocks[lastBlock()].position.y > cameraNode.position.y-100 {
-            moveInt = cameraNode.position.y + 500
-        } else {
-        moveInt = cameraNode.position.y + 100
-        }
-        let moveIntScore = scoreText.position.y + 100
+        
+        moveInt = blocks[lastBlock()-1].position.y + 600
+        
+        let moveFail = (blocks[lastBlock()-1].position.y + 600) - (size.height-50)
+        failureRect.position.y = moveFail
+        
+        let moveIntScore = blocks[lastBlock()-1].position.y + 1000
         let camMove = SKAction.move(to: CGPoint(x: cameraNode.position.x, y: moveInt), duration: 0.5)
         let scoreMove = SKAction.move(to: CGPoint(x: scoreText.position.x, y: moveIntScore), duration: 0.5)
         camMove.timingMode = .easeOut
@@ -416,11 +418,12 @@ class GameScene: SKScene {
         scoreAnim.timingMode = .easeOut
         scoreText.run(scoreAnim)
         
-        failureRect = SKShapeNode(rectOf: CGSize(width: size.width, height: 10))
+        failureRect = SKShapeNode(rectOf: CGSize(width: size.width, height: size.height))
         
-        failureRect.position = CGPoint(x: size.width/2, y: CGFloat(0))
+        failureRect.position = CGPoint(x: size.width/2, y: CGFloat(-1000))
+        failureRect.fillColor = .green
         failureRect.strokeColor = .clear
-        let failureBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width*4, height: 10))
+        let failureBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width*4, height: size.height))
         failureBody.categoryBitMask = 0
         failureBody.collisionBitMask = 0
         failureBody.contactTestBitMask = 1
@@ -493,7 +496,7 @@ extension GameScene: SKPhysicsContactDelegate {
             print("NODE A Y: " , nodeA.physicsBody?.velocity.dy)
             print("NODE B X: " , nodeB.physicsBody?.velocity.dx)
             print("NODE A X: " , nodeA.physicsBody?.velocity.dx)
-            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-175.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-175.0) /*&& (nodeB.physicsBody?.velocity.dx)! > CGFloat(0) || (nodeA.physicsBody?.velocity.dx)! > CGFloat(0) */&& !lost{
+            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-300.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-300.0) /*&& (nodeB.physicsBody?.velocity.dx)! > CGFloat(0) || (nodeA.physicsBody?.velocity.dx)! > CGFloat(0) */&& !lost{
                 print("FAST")
                 lost = true
                 /*if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) && !lost{
