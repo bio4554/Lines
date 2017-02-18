@@ -28,6 +28,8 @@ class GameScene: SKScene {
     var won = false
     let cameraNode = SKCameraNode()
     var failureRect = SKShapeNode()
+    var failureRect2 = SKShapeNode()
+    var failureRect3 = SKShapeNode()
     let scoreText = SKLabelNode()
     var score = 0
     var highScore = 0
@@ -36,6 +38,7 @@ class GameScene: SKScene {
     var isFalling = false
     var loser = SKLabelNode()
     let highScoreText = SKLabelNode()
+    var moveTo = Int()
     
     
     
@@ -116,7 +119,7 @@ class GameScene: SKScene {
                 
             }
             print("Tapped\n")
-            if !lost && Int((blocks[currentBlock].position.y)) == startingPoint-100 {
+            if !lost && Int((blocks[currentBlock].position.y)) == moveTo {
                 //if !lost {
                 
                 let blockBody = SKPhysicsBody(polygonFrom: blocks[currentBlock].path!)
@@ -165,7 +168,7 @@ class GameScene: SKScene {
                 }
                 
             } else {
-                print("Not at startingPoint! at: ", Int((blocks[currentBlock].position.y)), ", should be at: ", startingPoint-100)
+                print("Not at startingPoint! at: ", Int((blocks[currentBlock].position.y)), ", should be at: ", moveTo)
             }
             
         } else {
@@ -253,17 +256,39 @@ class GameScene: SKScene {
         } else {
             moveSpeedCheck = CGFloat(moveSpeed)
         }
-        print("STARTING: ", startingPoint)
-        let moveLeft = SKAction.move(to: CGPoint(x: size.width/2-400, y:  CGFloat(startingPoint)), duration: TimeInterval(moveSpeedCheck))
-        let moveRight = SKAction.move(to: CGPoint(x: size.width/2+400, y:  CGFloat(startingPoint)), duration: TimeInterval(moveSpeedCheck))
-        var moveDown = SKAction()
         if first {
+            moveTo = startingPoint
+        } else {
+            print("CURRENT: ", currentBlock)
+            if currentBlock == 1 {
+                moveTo = Int(blocks[lastBlock()].position.y + 600)
+            } else {
+                moveTo = Int(blocks[lastBlock()-1].position.y + 600)
+            }
+        }
+        var moveDown = SKAction()
+        var moveLeft = SKAction()
+        var moveRight = SKAction()
+        if first {
+            print("STARTING: ", startingPoint)
+            moveLeft = SKAction.move(to: CGPoint(x: size.width/2-400, y:  CGFloat(startingPoint)), duration: TimeInterval(moveSpeedCheck))
+            moveRight = SKAction.move(to: CGPoint(x: size.width/2+400, y:  CGFloat(startingPoint)), duration: TimeInterval(moveSpeedCheck))
+            moveDown = SKAction()
+            
             print("first anim")
             moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: CGFloat(startingPoint)), duration: 0.1)
             
+            
+            
+            
         } else {
+            print("STARTING: ", moveTo)
+            moveLeft = SKAction.move(to: CGPoint(x: size.width/2-400, y:  CGFloat(moveTo)), duration: TimeInterval(moveSpeedCheck))
+            moveRight = SKAction.move(to: CGPoint(x: size.width/2+400, y:  CGFloat(moveTo)), duration: TimeInterval(moveSpeedCheck))
+            moveDown = SKAction()
+            
             print("else anim")
-            moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: blocks[lastBlock()].position.y + 250), duration: 1)
+            moveDown = SKAction.move(to: CGPoint(x: size.width/2, y: CGFloat(moveTo)), duration: 1)
         }
         moveDown.timingMode = .easeOut
         blocks[currentBlock].run(moveDown)
@@ -378,12 +403,16 @@ class GameScene: SKScene {
     func moveScreen() {
         var moveInt:CGFloat
         
-        moveInt = blocks[lastBlock()-1].position.y + 600
+        moveInt = blocks[lastBlock()-1].position.y + 800
         
-        let moveFail = (blocks[lastBlock()-1].position.y + 600) - (size.height-50)
+        let moveFail = (blocks[lastBlock()-1].position.y + 800) - (size.height-750)
+        let moveFail2 = (blocks[lastBlock()-1].position.y + 800) - (size.height-450)
+        let moveFail3 = (blocks[lastBlock()-1].position.y + 800) - (size.height-150)
         failureRect.position.y = moveFail
+        failureRect2.position.y = moveFail2
+        failureRect3.position.y = moveFail3
         
-        let moveIntScore = blocks[lastBlock()-1].position.y + 1000
+        let moveIntScore = blocks[lastBlock()-1].position.y + 1100
         let camMove = SKAction.move(to: CGPoint(x: cameraNode.position.x, y: moveInt), duration: 0.5)
         let scoreMove = SKAction.move(to: CGPoint(x: scoreText.position.x, y: moveIntScore), duration: 0.5)
         camMove.timingMode = .easeOut
@@ -414,25 +443,51 @@ class GameScene: SKScene {
         scoreText.fontSize = 200
         scoreText.position = CGPoint(x: size.width/4, y: size.height*2+100)
         addChild(scoreText)
-        let scoreAnim = SKAction.move(to: CGPoint(x: size.width/4, y: size.height/2+150), duration: 1)
+        let scoreAnim = SKAction.move(to: CGPoint(x: size.width/4, y: size.height/2+300), duration: 1)
         scoreAnim.timingMode = .easeOut
         scoreText.run(scoreAnim)
         
-        failureRect = SKShapeNode(rectOf: CGSize(width: size.width, height: size.height))
+        failureRect = SKShapeNode(rectOf: CGSize(width: size.width, height: size.height/3))
+        failureRect2 = SKShapeNode(rectOf: CGSize(width: size.width, height: size.height/3))
+        failureRect3 = SKShapeNode(rectOf: CGSize(width: size.width, height: size.height/3))
         
-        failureRect.position = CGPoint(x: size.width/2, y: CGFloat(-1000))
-        failureRect.fillColor = .green
+        failureRect.position = CGPoint(x: size.width/2, y: CGFloat(-300))
+        
         failureRect.strokeColor = .clear
-        let failureBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width*4, height: size.height))
+        
+        failureRect2.position = CGPoint(x: size.width/2, y: CGFloat(-600))
+        
+        failureRect2.strokeColor = .clear
+        
+        failureRect3.position = CGPoint(x: size.width/2, y: CGFloat(-900))
+        
+        failureRect3.strokeColor = .clear
+        let failureBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width*4, height: size.height/3))
         failureBody.categoryBitMask = 0
         failureBody.collisionBitMask = 0
         failureBody.contactTestBitMask = 1
         failureBody.isDynamic = false
+        
+        let failureBody2 = SKPhysicsBody(rectangleOf: CGSize(width: size.width*4, height: size.height/3))
+        failureBody2.categoryBitMask = 0
+        failureBody2.collisionBitMask = 0
+        failureBody2.contactTestBitMask = 1
+        failureBody2.isDynamic = false
+        
+        let failureBody3 = SKPhysicsBody(rectangleOf: CGSize(width: size.width*4, height: size.height/3))
+        failureBody3.categoryBitMask = 0
+        failureBody3.collisionBitMask = 0
+        failureBody3.contactTestBitMask = 1
+        failureBody3.isDynamic = false
         failureRect.physicsBody = failureBody
+        failureRect2.physicsBody = failureBody2
+        failureRect3.physicsBody = failureBody3
         
         
         
         addChild(failureRect)
+        addChild(failureRect2)
+        addChild(failureRect3)
         addChild(cameraNode)
         
         camera = cameraNode
@@ -457,6 +512,7 @@ class GameScene: SKScene {
         startingPoint = 100
         first = true
         score = 0
+        cameraNode.removeAllActions()
         cameraNode.position.y = size.height/2
         won = false
         lost = false
@@ -496,7 +552,7 @@ extension GameScene: SKPhysicsContactDelegate {
             print("NODE A Y: " , nodeA.physicsBody?.velocity.dy)
             print("NODE B X: " , nodeB.physicsBody?.velocity.dx)
             print("NODE A X: " , nodeA.physicsBody?.velocity.dx)
-            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-300.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-300.0) /*&& (nodeB.physicsBody?.velocity.dx)! > CGFloat(0) || (nodeA.physicsBody?.velocity.dx)! > CGFloat(0) */&& !lost{
+            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-400.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-400.0) /*&& (nodeB.physicsBody?.velocity.dx)! > CGFloat(0) || (nodeA.physicsBody?.velocity.dx)! > CGFloat(0) */&& !lost{
                 print("FAST")
                 lost = true
                 /*if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) && !lost{
