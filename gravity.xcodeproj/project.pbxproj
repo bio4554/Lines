@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2515C6661E57E789005A10CD /* AboutScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2515C6651E57E789005A10CD /* AboutScene.swift */; };
 		252DD75D1E4940A00005D767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DD75C1E4940A00005D767 /* AppDelegate.swift */; };
 		252DD7631E4940A00005D767 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DD7621E4940A00005D767 /* GameScene.swift */; };
 		252DD7651E4940A00005D767 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DD7641E4940A00005D767 /* GameViewController.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		1CA94CED2A1F64F93926757D /* Pods-gravityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gravityTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-gravityTests/Pods-gravityTests.release.xcconfig"; sourceTree = "<group>"; };
+		2515C6651E57E789005A10CD /* AboutScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutScene.swift; sourceTree = "<group>"; };
 		252DD7591E4940A00005D767 /* gravity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gravity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		252DD75C1E4940A00005D767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		252DD7621E4940A00005D767 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				252DD7691E4940A00005D767 /* Assets.xcassets */,
 				252DD76B1E4940A00005D767 /* LaunchScreen.storyboard */,
 				252DD76E1E4940A00005D767 /* Info.plist */,
+				2515C6651E57E789005A10CD /* AboutScene.swift */,
 			);
 			path = Lines;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 			files = (
 				252DD7631E4940A00005D767 /* GameScene.swift in Sources */,
 				252DD7651E4940A00005D767 /* GameViewController.swift in Sources */,
+				2515C6661E57E789005A10CD /* AboutScene.swift in Sources */,
 				252DD75D1E4940A00005D767 /* AppDelegate.swift in Sources */,
 				25F2FC541E4A926300C644D2 /* MainMenu.swift in Sources */,
 			);

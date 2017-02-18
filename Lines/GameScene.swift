@@ -190,7 +190,7 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         
-        if blocks[lastBlock()].position.y > cameraNode.position.y-200 && !cameraNode.hasActions() && !first{
+        if blocks[lastBlock()].position.y > cameraNode.position.y-200 && !cameraNode.hasActions() && !first && !lost {
             moveScreen()
             failureRect.position.y += 100
         }
@@ -477,7 +477,7 @@ extension GameScene: SKPhysicsContactDelegate {
             print("CONTACT")
             print("NODE B: " , nodeB.physicsBody?.velocity.dy)
             print("NODE A: " , nodeA.physicsBody?.velocity.dy)
-            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-200.0) && !lost{
+            if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-150.0) || (nodeA.physicsBody?.velocity.dy)! < CGFloat(-150.0) && !lost{
                 print("FAST")
                 lost = true
                 /*if (nodeB.physicsBody?.velocity.dy)! < CGFloat(-200.0) && !lost{
