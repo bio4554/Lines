@@ -1,0 +1,6 @@
+framework module Pods_gravity {
+  umbrella header "Pods-gravity-umbrella.h"
+
+  export *
+  module * { export * }
+}

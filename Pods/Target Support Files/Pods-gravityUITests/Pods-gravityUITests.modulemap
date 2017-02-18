@@ -1,0 +1,6 @@
+framework module Pods_gravityUITests {
+  umbrella header "Pods-gravityUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
