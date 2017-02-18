@@ -243,9 +243,16 @@ class GameScene: SKScene {
         blocks.append(section)
         addChild(blocks[currentBlock])
         
+        var moveSpeedCheck:CGFloat
         
-        let moveLeft = SKAction.move(to: CGPoint(x: size.width/2-400, y:  CGFloat(startingPoint)), duration: moveSpeed)
-        let moveRight = SKAction.move(to: CGPoint(x: size.width/2+400, y:  CGFloat(startingPoint)), duration: moveSpeed)
+        if moveSpeed < 0.4 {
+            moveSpeedCheck = 0.4
+        } else {
+            moveSpeedCheck = CGFloat(moveSpeed)
+        }
+        
+        let moveLeft = SKAction.move(to: CGPoint(x: size.width/2-400, y:  CGFloat(startingPoint)), duration: TimeInterval(moveSpeedCheck))
+        let moveRight = SKAction.move(to: CGPoint(x: size.width/2+400, y:  CGFloat(startingPoint)), duration: TimeInterval(moveSpeedCheck))
         var moveDown = SKAction()
         if first {
             print("first anim")
