@@ -16,7 +16,6 @@
 		252DD76D1E4940A00005D767 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 252DD76B1E4940A00005D767 /* LaunchScreen.storyboard */; };
 		252DD7781E4940A00005D767 /* LinesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DD7771E4940A00005D767 /* LinesTests.swift */; };
 		252DD7831E4940A00005D767 /* LinesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DD7821E4940A00005D767 /* LinesUITests.swift */; };
-		254FE8C81E59187400006995 /* loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 254FE8C71E59187400006995 /* loop.wav */; };
 		254FE8CA1E591CBF00006995 /* untitled.wav in Resources */ = {isa = PBXBuildFile; fileRef = 254FE8C91E591CBF00006995 /* untitled.wav */; };
 		254FE8CC1E591D9C00006995 /* boink.wav in Resources */ = {isa = PBXBuildFile; fileRef = 254FE8CB1E591D9C00006995 /* boink.wav */; };
 		254FE8D21E59234E00006995 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 254FE8D11E59234E00006995 /* lose.wav */; };
@@ -62,10 +61,10 @@
 		252DD7821E4940A00005D767 /* LinesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinesUITests.swift; sourceTree = "<group>"; };
 		252DD7841E4940A00005D767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		252F27E61E53EF8700C9A5D1 /* gravity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = gravity.entitlements; sourceTree = "<group>"; };
-		254FE8C71E59187400006995 /* loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = loop.wav; sourceTree = "<group>"; };
 		254FE8C91E591CBF00006995 /* untitled.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = untitled.wav; sourceTree = "<group>"; };
 		254FE8CB1E591D9C00006995 /* boink.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boink.wav; sourceTree = "<group>"; };
 		254FE8D11E59234E00006995 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
+		25B6DFD51E594CC400A247CB /* loop.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = loop.m4a; sourceTree = "<group>"; };
 		25D6F6251E57574B001E30B3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		25F2FC531E4A926300C644D2 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		33B13C5E5B6D72BD54A5F515 /* Pods-gravity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gravity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-gravity/Pods-gravity.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,10 +131,10 @@
 		252DD75B1E4940A00005D767 /* Lines */ = {
 			isa = PBXGroup;
 			children = (
+				25B6DFD51E594CC400A247CB /* loop.m4a */,
 				254FE8D11E59234E00006995 /* lose.wav */,
 				254FE8CB1E591D9C00006995 /* boink.wav */,
 				254FE8C91E591CBF00006995 /* untitled.wav */,
-				254FE8C71E59187400006995 /* loop.wav */,
 				25D6F6251E57574B001E30B3 /* GoogleService-Info.plist */,
 				252DD75C1E4940A00005D767 /* AppDelegate.swift */,
 				252DD7621E4940A00005D767 /* GameScene.swift */,
@@ -315,7 +314,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				254FE8C81E59187400006995 /* loop.wav in Resources */,
 				254FE8D21E59234E00006995 /* lose.wav in Resources */,
 				254FE8CA1E591CBF00006995 /* untitled.wav in Resources */,
 				252DD7681E4940A00005D767 /* Main.storyboard in Resources */,

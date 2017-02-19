@@ -53,15 +53,8 @@ class GameScene: SKScene {
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
         self.backgroundColor = .black
         
-        bgMusic = SKAudioNode(fileNamed: "untitled.wav")
-        bgMusic.autoplayLooped = true
-        //bgMusic.speed = 0.5
         
-        boinkBrick = SKAudioNode(fileNamed: "boink.wav")
-        boinkBrick.autoplayLooped = false
         
-        loseWav = SKAudioNode(fileNamed: "lose.wav")
-        loseWav.autoplayLooped = false
         
         
         if let highScoret:Int = UserDefaults.standard.integer(forKey: "highScore") {
@@ -170,8 +163,12 @@ class GameScene: SKScene {
                         blocks[currentBlock].fillColor = .green
                         blocks[currentBlock].strokeColor = .green
                         //addChild(boinkBrick)
-                        boinkBrick.run(SKAction.stop())
-                        boinkBrick.run(SKAction.play())
+                        DispatchQueue.global(qos: .background).async {
+                            print("This is run on the background queue")
+                            self.run(SKAction.playSoundFileNamed("boink.wav", waitForCompletion: false))
+                            
+                            
+                        }
                         score += 2
                     } else {
                         score += 1
@@ -275,10 +272,27 @@ class GameScene: SKScene {
         }
         if first {
             moveTo = startingPoint
-            addChild(bgMusic)
-            addChild(boinkBrick)
-            addChild(loseWav)
-            bgMusic.run(SKAction.play())
+            
+            DispatchQueue.global(qos: .background).async {
+                print("This is run on the background queue")
+                self.bgMusic = SKAudioNode(fileNamed: "untitled.wav")
+                self.bgMusic.autoplayLooped = true
+                //bgMusic.speed = 0.5
+                
+                
+                
+                
+                self.addChild(self.bgMusic)
+                self.bgMusic.run(SKAction.play())
+                
+                
+            }
+            
+                
+                
+                
+            
+            
         } else {
             print("CURRENT: ", currentBlock)
             if currentBlock == 1 {
@@ -338,8 +352,14 @@ class GameScene: SKScene {
         if lost && !lostOnce {
             //lost = true
             lostOnce = true
-            bgMusic.run(SKAction.stop())
-            loseWav.run(SKAction.play())
+            bgMusic.removeFromParent()
+            DispatchQueue.global(qos: .background).async {
+                print("This is run on the background queue")
+                self.run(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
+                
+                
+            }
+            
             failureRect.position.y = CGFloat(0)
             //blocks[currentBlock].removeFromParent()
             let blockBody = SKPhysicsBody(polygonFrom: blocks[currentBlock].path!)
