@@ -19,7 +19,7 @@
 		254FE8C81E59187400006995 /* loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 254FE8C71E59187400006995 /* loop.wav */; };
 		254FE8CA1E591CBF00006995 /* untitled.wav in Resources */ = {isa = PBXBuildFile; fileRef = 254FE8C91E591CBF00006995 /* untitled.wav */; };
 		254FE8CC1E591D9C00006995 /* boink.wav in Resources */ = {isa = PBXBuildFile; fileRef = 254FE8CB1E591D9C00006995 /* boink.wav */; };
-		254FE8D01E59212F00006995 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 254FE8CF1E59212F00006995 /* lose.wav */; };
+		254FE8D21E59234E00006995 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 254FE8D11E59234E00006995 /* lose.wav */; };
 		25D6F6261E57574B001E30B3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25D6F6251E57574B001E30B3 /* GoogleService-Info.plist */; };
 		25F2FC541E4A926300C644D2 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F2FC531E4A926300C644D2 /* MainMenu.swift */; };
 		2672BC9C9C17067D83D86174 /* Pods_gravity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0C3E6F1E940268837AC9600 /* Pods_gravity.framework */; };
@@ -65,7 +65,7 @@
 		254FE8C71E59187400006995 /* loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = loop.wav; sourceTree = "<group>"; };
 		254FE8C91E591CBF00006995 /* untitled.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = untitled.wav; sourceTree = "<group>"; };
 		254FE8CB1E591D9C00006995 /* boink.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boink.wav; sourceTree = "<group>"; };
-		254FE8CF1E59212F00006995 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
+		254FE8D11E59234E00006995 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
 		25D6F6251E57574B001E30B3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		25F2FC531E4A926300C644D2 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		33B13C5E5B6D72BD54A5F515 /* Pods-gravity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gravity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-gravity/Pods-gravity.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 		252DD75B1E4940A00005D767 /* Lines */ = {
 			isa = PBXGroup;
 			children = (
-				254FE8CF1E59212F00006995 /* lose.wav */,
+				254FE8D11E59234E00006995 /* lose.wav */,
 				254FE8CB1E591D9C00006995 /* boink.wav */,
 				254FE8C91E591CBF00006995 /* untitled.wav */,
 				254FE8C71E59187400006995 /* loop.wav */,
@@ -315,8 +315,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				254FE8D01E59212F00006995 /* lose.wav in Resources */,
 				254FE8C81E59187400006995 /* loop.wav in Resources */,
+				254FE8D21E59234E00006995 /* lose.wav in Resources */,
 				254FE8CA1E591CBF00006995 /* untitled.wav in Resources */,
 				252DD7681E4940A00005D767 /* Main.storyboard in Resources */,
 				25D6F6261E57574B001E30B3 /* GoogleService-Info.plist in Resources */,
