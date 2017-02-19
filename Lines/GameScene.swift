@@ -159,7 +159,7 @@ class GameScene: SKScene {
                     blocks[currentBlock].physicsBody = blockBody
                     
                     print("X: ", blocks[currentBlock].position.x, "\nX2: ", blocks[0].position.x)
-                    if blocks[currentBlock].position.x > blocks[0].position.x-10 && blocks[currentBlock].position.x < blocks[0].position.x+10 {
+                    if blocks[currentBlock].position.x > blocks[0].position.x-20 && blocks[currentBlock].position.x < blocks[0].position.x+20 {
                         blocks[currentBlock].fillColor = .green
                         blocks[currentBlock].strokeColor = .green
                         //addChild(boinkBrick)
@@ -273,9 +273,10 @@ class GameScene: SKScene {
         if first {
             moveTo = startingPoint
             
-            DispatchQueue.global(qos: .background).async {
+            /*DispatchQueue.global(qos: .background).async {
                 print("This is run on the background queue")
-                self.bgMusic = SKAudioNode(fileNamed: "untitled.wav")
+                self.bgMusic = SKAudioNode(fileNamed: "loop.wav")
+                self.bgMusic.run(SKAction.changeVolume(to: 0.5, duration: 0.1))
                 self.bgMusic.autoplayLooped = true
                 //bgMusic.speed = 0.5
                 
@@ -286,7 +287,7 @@ class GameScene: SKScene {
                 self.bgMusic.run(SKAction.play())
                 
                 
-            }
+            }*/
             
                 
                 

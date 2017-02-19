@@ -17,10 +17,11 @@
 		252DD7781E4940A00005D767 /* LinesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DD7771E4940A00005D767 /* LinesTests.swift */; };
 		252DD7831E4940A00005D767 /* LinesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DD7821E4940A00005D767 /* LinesUITests.swift */; };
 		254FE8CA1E591CBF00006995 /* untitled.wav in Resources */ = {isa = PBXBuildFile; fileRef = 254FE8C91E591CBF00006995 /* untitled.wav */; };
-		254FE8CC1E591D9C00006995 /* boink.wav in Resources */ = {isa = PBXBuildFile; fileRef = 254FE8CB1E591D9C00006995 /* boink.wav */; };
-		254FE8D21E59234E00006995 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 254FE8D11E59234E00006995 /* lose.wav */; };
 		25D6F6261E57574B001E30B3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25D6F6251E57574B001E30B3 /* GoogleService-Info.plist */; };
 		25F2FC541E4A926300C644D2 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F2FC531E4A926300C644D2 /* MainMenu.swift */; };
+		25FA2E7E1E5A1A34009B5E01 /* loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 25FA2E7D1E5A1A34009B5E01 /* loop.wav */; };
+		25FA2E801E5A1A4B009B5E01 /* boink.wav in Resources */ = {isa = PBXBuildFile; fileRef = 25FA2E7F1E5A1A4B009B5E01 /* boink.wav */; };
+		25FA2E821E5A1A52009B5E01 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 25FA2E811E5A1A52009B5E01 /* lose.wav */; };
 		2672BC9C9C17067D83D86174 /* Pods_gravity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0C3E6F1E940268837AC9600 /* Pods_gravity.framework */; };
 		937A055F587AF47843CB5D18 /* Pods_gravityUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9800EBC1A92D00CB34D7376F /* Pods_gravityUITests.framework */; };
 		EA40EAF90B47BFCE38D8587D /* Pods_gravityTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 814C0FF7DEBD534C7258B4A2 /* Pods_gravityTests.framework */; };
@@ -62,11 +63,11 @@
 		252DD7841E4940A00005D767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		252F27E61E53EF8700C9A5D1 /* gravity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = gravity.entitlements; sourceTree = "<group>"; };
 		254FE8C91E591CBF00006995 /* untitled.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = untitled.wav; sourceTree = "<group>"; };
-		254FE8CB1E591D9C00006995 /* boink.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boink.wav; sourceTree = "<group>"; };
-		254FE8D11E59234E00006995 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
-		25B6DFD51E594CC400A247CB /* loop.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = loop.m4a; sourceTree = "<group>"; };
 		25D6F6251E57574B001E30B3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		25F2FC531E4A926300C644D2 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		25FA2E7D1E5A1A34009B5E01 /* loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = loop.wav; sourceTree = "<group>"; };
+		25FA2E7F1E5A1A4B009B5E01 /* boink.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boink.wav; sourceTree = "<group>"; };
+		25FA2E811E5A1A52009B5E01 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
 		33B13C5E5B6D72BD54A5F515 /* Pods-gravity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gravity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-gravity/Pods-gravity.debug.xcconfig"; sourceTree = "<group>"; };
 		814C0FF7DEBD534C7258B4A2 /* Pods_gravityTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gravityTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9800EBC1A92D00CB34D7376F /* Pods_gravityUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gravityUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,9 +132,9 @@
 		252DD75B1E4940A00005D767 /* Lines */ = {
 			isa = PBXGroup;
 			children = (
-				25B6DFD51E594CC400A247CB /* loop.m4a */,
-				254FE8D11E59234E00006995 /* lose.wav */,
-				254FE8CB1E591D9C00006995 /* boink.wav */,
+				25FA2E811E5A1A52009B5E01 /* lose.wav */,
+				25FA2E7F1E5A1A4B009B5E01 /* boink.wav */,
+				25FA2E7D1E5A1A34009B5E01 /* loop.wav */,
 				254FE8C91E591CBF00006995 /* untitled.wav */,
 				25D6F6251E57574B001E30B3 /* GoogleService-Info.plist */,
 				252DD75C1E4940A00005D767 /* AppDelegate.swift */,
@@ -314,13 +315,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				254FE8D21E59234E00006995 /* lose.wav in Resources */,
 				254FE8CA1E591CBF00006995 /* untitled.wav in Resources */,
 				252DD7681E4940A00005D767 /* Main.storyboard in Resources */,
 				25D6F6261E57574B001E30B3 /* GoogleService-Info.plist in Resources */,
+				25FA2E7E1E5A1A34009B5E01 /* loop.wav in Resources */,
 				252DD76A1E4940A00005D767 /* Assets.xcassets in Resources */,
 				252DD76D1E4940A00005D767 /* LaunchScreen.storyboard in Resources */,
-				254FE8CC1E591D9C00006995 /* boink.wav in Resources */,
+				25FA2E801E5A1A4B009B5E01 /* boink.wav in Resources */,
+				25FA2E821E5A1A52009B5E01 /* lose.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
