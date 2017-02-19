@@ -39,6 +39,9 @@ class GameScene: SKScene {
     var loser = SKLabelNode()
     let highScoreText = SKLabelNode()
     var moveTo = Int()
+    var bgMusic = SKAudioNode()
+    var boinkBrick = SKAudioNode()
+    var loseWav = SKAudioNode()
     
     
     
@@ -49,6 +52,17 @@ class GameScene: SKScene {
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
         self.backgroundColor = .black
+        
+        bgMusic = SKAudioNode(fileNamed: "untitled.wav")
+        bgMusic.autoplayLooped = true
+        //bgMusic.speed = 0.5
+        
+        boinkBrick = SKAudioNode(fileNamed: "boink.wav")
+        boinkBrick.autoplayLooped = false
+        
+        loseWav = SKAudioNode(fileNamed: "lose.wav")
+        loseWav.autoplayLooped = false
+        
         
         if let highScoret:Int = UserDefaults.standard.integer(forKey: "highScore") {
             highScore = highScoret
@@ -152,9 +166,12 @@ class GameScene: SKScene {
                     blocks[currentBlock].physicsBody = blockBody
                     
                     print("X: ", blocks[currentBlock].position.x, "\nX2: ", blocks[0].position.x)
-                    if blocks[currentBlock].position.x > blocks[0].position.x-10 && blocks[currentBlock].position.x < blocks[0].position.x+10 {
+                    if blocks[currentBlock].position.x > blocks[0].position.x-100 && blocks[currentBlock].position.x < blocks[0].position.x+10 {
                         blocks[currentBlock].fillColor = .green
                         blocks[currentBlock].strokeColor = .green
+                        //addChild(boinkBrick)
+                        boinkBrick.run(SKAction.stop())
+                        boinkBrick.run(SKAction.play())
                         score += 2
                     } else {
                         score += 1
@@ -258,6 +275,10 @@ class GameScene: SKScene {
         }
         if first {
             moveTo = startingPoint
+            addChild(bgMusic)
+            addChild(boinkBrick)
+            addChild(loseWav)
+            bgMusic.run(SKAction.play())
         } else {
             print("CURRENT: ", currentBlock)
             if currentBlock == 1 {
@@ -317,6 +338,8 @@ class GameScene: SKScene {
         if lost && !lostOnce {
             //lost = true
             lostOnce = true
+            bgMusic.run(SKAction.stop())
+            loseWav.run(SKAction.play())
             failureRect.position.y = CGFloat(0)
             //blocks[currentBlock].removeFromParent()
             let blockBody = SKPhysicsBody(polygonFrom: blocks[currentBlock].path!)
