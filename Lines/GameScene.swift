@@ -164,10 +164,7 @@ class GameScene: SKScene {
                         blocks[currentBlock].strokeColor = .green
                         //addChild(boinkBrick)
                         DispatchQueue.global(qos: .background).async {
-                            print("This is run on the background queue")
                             self.run(SKAction.playSoundFileNamed("boink.wav", waitForCompletion: false))
-                            
-                            
                         }
                         score += 2
                     } else {
@@ -191,17 +188,6 @@ class GameScene: SKScene {
         }
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
     
     
     override func update(_ currentTime: TimeInterval) {
@@ -274,24 +260,24 @@ class GameScene: SKScene {
             moveTo = startingPoint
             
             /*DispatchQueue.global(qos: .background).async {
-                print("This is run on the background queue")
-                self.bgMusic = SKAudioNode(fileNamed: "loop.wav")
-                self.bgMusic.run(SKAction.changeVolume(to: 0.5, duration: 0.1))
-                self.bgMusic.autoplayLooped = true
-                //bgMusic.speed = 0.5
-                
-                
-                
-                
-                self.addChild(self.bgMusic)
-                self.bgMusic.run(SKAction.play())
-                
-                
-            }*/
+             print("This is run on the background queue")
+             self.bgMusic = SKAudioNode(fileNamed: "loop.wav")
+             self.bgMusic.run(SKAction.changeVolume(to: 0.5, duration: 0.1))
+             self.bgMusic.autoplayLooped = true
+             //bgMusic.speed = 0.5
+             
+             
+             
+             
+             self.addChild(self.bgMusic)
+             self.bgMusic.run(SKAction.play())
+             
+             
+             }*/
             
-                
-                
-                
+            
+            
+            
             
             
         } else {
