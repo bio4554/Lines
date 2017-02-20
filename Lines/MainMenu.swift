@@ -29,7 +29,7 @@ class MainMenu: SKScene {
         let versionText = SKLabelNode()
         versionText.text = "v1.0 © Mars Dev 2017"
         versionText.fontSize = 100
-        //versionText.fontName = "AvenirNext-Bold"
+        versionText.fontName = "AvenirNext-Bold"
         versionText.position = CGPoint(x: size.width/2, y: 100)
         
         addChild(text)
