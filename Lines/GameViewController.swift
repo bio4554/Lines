@@ -32,6 +32,7 @@ class GameViewController: UIViewController, GADBannerViewDelegate {
         bannerView.adUnitID = "ca-app-pub-6771136112977262/5909802439"
         
         let reqad = GADRequest()
+        
         bannerView.load(reqad)
         self.view.addSubview(bannerView)
     }
