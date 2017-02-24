@@ -20,9 +20,9 @@ class GameViewController: UIViewController, GADBannerViewDelegate {
         super.viewDidLoad()
         let scene = MainMenu(size: CGSize(width: 1536, height: 2048))
         let skView = self.view as! SKView
-        skView.showsFPS = false
+        skView.showsFPS = true
         skView.showsPhysics = false
-        skView.showsNodeCount = false
+        skView.showsNodeCount = true
         skView.ignoresSiblingOrder = true
         scene.scaleMode = .aspectFill
         skView.presentScene(scene)
@@ -31,10 +31,10 @@ class GameViewController: UIViewController, GADBannerViewDelegate {
         bannerView.rootViewController = self
         bannerView.adUnitID = "ca-app-pub-6771136112977262/5909802439"
         
-        let reqad = GADRequest()
+        //let reqad = GADRequest()
         
-        bannerView.load(reqad)
-        self.view.addSubview(bannerView)
+        //bannerView.load(reqad)
+        //self.view.addSubview(bannerView)
     }
 
     override var shouldAutorotate: Bool {

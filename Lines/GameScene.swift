@@ -42,6 +42,8 @@ class GameScene: SKScene {
     var bgMusic = SKAudioNode()
     var boinkBrick = SKAudioNode()
     var loseWav = SKAudioNode()
+    var helperText = SKLabelNode()
+    
     
     
     
@@ -52,7 +54,6 @@ class GameScene: SKScene {
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
         self.backgroundColor = .black
-        
         
         
         
@@ -68,20 +69,13 @@ class GameScene: SKScene {
         }
         
         // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(M_PI), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
+        
+        
         
         
         setupLedges()
+        firstTime()
         physicsWorld.gravity.dy = -22
         physicsWorld.contactDelegate = self
         /*
@@ -96,46 +90,30 @@ class GameScene: SKScene {
         
     }
     
-    
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        
+    func firstTime() {
+        helperText = SKLabelNode()
+        helperText.text = "tap to stop the block"
+        helperText.position = CGPoint(x: size.width/2, y: (size.height/2))
+        helperText.alpha = 0
+        helperText.fontSize = 100
+        addChild(helperText)
+        helperText.run(SKAction.fadeIn(withDuration: TimeInterval(1)))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         
         if !lost {
-            for t in touches {
-                
-                self.touchDown(atPoint: t.location(in: self))
-                let node = nodes(at: t.location(in: self))
-                if buttonShape.contains(t.location(in: self)) && lost {
-                    
-                    self.restart()
-                }
-                
-            }
             print("Tapped\n")
             if !lost && Int((blocks[currentBlock].position.y)) == moveTo {
                 //if !lost {
-                
                 let blockBody = SKPhysicsBody(polygonFrom: blocks[currentBlock].path!)
                 
                 blockBody.mass = 500
                 blockBody.friction = 500.0
                 blockBody.contactTestBitMask = 0
                 blockBody.categoryBitMask = 1
-                blockBody.restitution = 0
+                blockBody.restitution = 0.05
                 
                 
                 if first {
@@ -228,7 +206,9 @@ class GameScene: SKScene {
     }
     
     func addBlock() {
-        
+        if currentBlock == 2 {
+            helperText.run(SKAction.fadeOut(withDuration: TimeInterval(2)))
+        }
         let path = UIBezierPath()
         path.move(to: CGPoint(x: -200, y: 0))
         path.addLine(to: CGPoint(x: 200, y: 0))
