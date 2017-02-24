@@ -163,7 +163,7 @@ class GameScene: SKScene {
                         blocks[currentBlock].fillColor = .green
                         blocks[currentBlock].strokeColor = .green
                         //addChild(boinkBrick)
-                        DispatchQueue.global(qos: .background).async {
+                        DispatchQueue.main.async {
                             self.run(SKAction.playSoundFileNamed("boink.wav", waitForCompletion: false))
                         }
                         score += 2
@@ -340,7 +340,7 @@ class GameScene: SKScene {
             //lost = true
             lostOnce = true
             bgMusic.removeFromParent()
-            DispatchQueue.global(qos: .background).async {
+            DispatchQueue.main.async {
                 print("This is run on the background queue")
                 self.run(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
                 
