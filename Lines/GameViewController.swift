@@ -20,9 +20,9 @@ class GameViewController: UIViewController, GADBannerViewDelegate {
         super.viewDidLoad()
         let scene = MainMenu(size: CGSize(width: 1536, height: 2048))
         let skView = self.view as! SKView
-        skView.showsFPS = true
+        skView.showsFPS = false
         skView.showsPhysics = false
-        skView.showsNodeCount = true
+        skView.showsNodeCount = false
         skView.ignoresSiblingOrder = true
         scene.scaleMode = .aspectFill
         skView.presentScene(scene)
