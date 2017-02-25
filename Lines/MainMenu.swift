@@ -18,7 +18,7 @@ class MainMenu: SKScene {
         text.fontSize = 200
         text.position = CGPoint(x: size.width/2, y: size.height/2)
         
-       
+        
         
         let goText = SKLabelNode()
         goText.text = "∨"

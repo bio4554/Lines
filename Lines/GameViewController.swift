@@ -31,10 +31,10 @@ class GameViewController: UIViewController, GADBannerViewDelegate {
         bannerView.rootViewController = self
         bannerView.adUnitID = "ca-app-pub-6771136112977262/5909802439"
         
-        //let reqad = GADRequest()
+        let reqad = GADRequest()
         
-        //bannerView.load(reqad)
-        //self.view.addSubview(bannerView)
+        bannerView.load(reqad)
+        self.view.addSubview(bannerView)
     }
 
     override var shouldAutorotate: Bool {
